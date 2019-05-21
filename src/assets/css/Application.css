@@ -1,0 +1,314 @@
+
+/* 
+    Created on : Jun 13, 2015, 3:29:41 PM
+    Author     : rifat
+*/
+/*.button{
+    -fx-border-width: 0px 0px 0px 5px;
+    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
+        -fx-border-color: white;
+    -fx-text-fill: #4E4F52;
+        -fx-border-radius: 50px;
+        -fx-background-radius: 50px;
+    -fx-background-color: #282E34;
+        -fx-font-size: 15px; 
+        -fx-padding: 5px 25px;
+    -fx-font-weight:700;
+    -fx-font-family: 'Open Sans','Helvetica Neue',Arial,sans-serif;
+}
+
+.button:focused{
+    -fx-border-width: 0px 0px 0px 0px;
+        -fx-text-fill: #FFFFFF;
+
+}
+.button:pressed{
+    -fx-text-fill: white;
+}
+.button:hover{
+    -fx-background-color: #929292;
+    -fx-text-fill: white;
+}*/
+
+MenuButton{
+
+}
+
+.scroll-pane {
+
+    /*    -fx-background-insets: 0;*/
+    -fx-padding: 0;
+    -fx-background:#282E34;
+}
+
+.list-view .scroll-bar:horizontal .track,
+.list-view .scroll-bar:vertical .track{
+
+    -fx-border-color:derive(#D7D7D7,100%);
+    -fx-background-color: derive(#D7D7D7,100%);
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+/*The main scrollbar   which we drag every time (movable)*/ 
+.list-view .scroll-bar:horizontal .thumb,
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color:derive(black,90%);
+    -fx-background-insets: 2, 0, 0;
+    -fx-background-radius: 2em;
+
+}
+.list-view .scroll-bar:horizontal .increment-button ,
+.list-view .mylistview .scroll-bar:horizontal .decrement-button {
+
+    -fx-border-color:derive(#D7D7D7,100%);
+    -fx-background-color: derive(#D7D7D7,100%);
+    /*    -fx-background-color:transparent;*/
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+
+}
+.list-view .scroll-bar:horizontal .increment-arrow,
+.list-view .scroll-bar:horizontal .decrement-arrow,
+.list-view .scroll-bar:horizontal .increment-button,
+.list-view .scroll-bar:horizontal .decrement-button {
+    visibility: hidden;
+    -fx-border-color:derive(#D7D7D7,100%);
+    -fx-background-color: derive(#D7D7D7,100%);
+    -fx-padding:0;
+}
+.list-view .scroll-bar:horizontal .increment-button ,
+.list-view .mylistview .scroll-bar:horizontal .decrement-button {
+
+    -fx-border-color:derive(#D7D7D7,100%);
+    -fx-background-color: derive(#D7D7D7,100%);
+    /*    -fx-background-color:transparent;*/
+    -fx-background-radius: 0em;
+    -fx-padding:0 0 10 0;
+
+}
+.list-view .scroll-bar:vertical .increment-arrow,
+.list-view .scroll-bar:vertical .decrement-arrow,
+.list-view .scroll-bar:vertical .increment-button,
+.list-view .scroll-bar:vertical .decrement-button {
+
+    /*    -fx-border-color:derive(#D7D7D7,100%);
+        -fx-background-color: derive(#D7D7D7,100%);
+        -fx-padding:0;*/
+}
+.list-view .scroll-bar:vertical .increment-button ,
+.list-view .mylistview .scroll-bar:vertical .decrement-button {
+
+    /*    -fx-border-color:derive(#D7D7D7,100%);
+        -fx-background-color: derive(#D7D7D7,100%);
+            -fx-background-color:transparent;
+        -fx-background-radius: 0em;
+        -fx-padding:0 0 10 0;*/
+
+}
+
+
+#sideMenuToogleBtn{
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+#sideMenuToogleBtn:hover{
+    -fx-background-color: none;
+}
+#btnLogOut{
+
+}
+#acHead{
+    -fx-background-color:#282E34;
+}
+#acDashBord{
+    -fx-background-color:#282E34;
+}
+#mbtnUsrInfoBox{
+    -fx-background-color:#282E34;
+    -fx-text-fill: white;
+}
+#mbtnUsrInfoBox:hover, #mbtnUsrInfoBox:focused{
+    -fx-background-color:#494949;
+}
+#circleImgUsr{
+    -fx-padding: 0;
+}
+#lblUsrName{
+    -fx-text-fill: white;
+}
+
+/*MyCustomiseCss*/ 
+.dashboardToggle{
+    -fx-background-color: #312947;
+    -fx-text-fill:#D7D7D7;
+}
+.dashboardToggle:hover{
+    -fx-background-color: #ffa531;
+    -fx-text-fill:white;
+}
+.dashboardToggle:selected{
+    -fx-background-color: #db6a0e;
+    -fx-text-fill:white;
+}
+.dashboardToggle:pressed{
+    -fx-background-color: #db6a0e;
+    -fx-text-fill:white;
+}
+
+.submenus {
+    -fx-background-color: transparent;
+    -fx-text-fill: #d4d4d4;
+    -fx-pref-height: 41px;
+    -fx-min-height: 41px;
+    -fx-padding: 0 0 0 10;
+    -fx-font-family: 'Open Sans', sans-serif;
+    -fx-graphic-text-gap: 5;
+}
+
+.submenus:hover {
+    -fx-text-fill: #000;
+    -fx-background-color:#ffc000;
+    /*    -fx-graphic: url("../img/inactive.png");*/
+    -fx-background-radius:0;
+
+}
+
+.submenus:selected {
+    -fx-text-fill: #000;
+    -fx-background-color:#ffc000;    /*    -fx-graphic: url("../img/inactive.png");*/
+    -fx-background-radius:0;
+}
+.submenus:pressed {
+    -fx-text-fill: #000;
+    -fx-background-color:#ffc000;
+    -fx-background-radius:0;
+    -fx-graphic-text-gap:12;
+}
+
+
+.submen-dashboard{
+    -fx-graphic: url("../images/dashboard.png");
+}
+
+.submen-dashboard:hover{
+    -fx-graphic: url("../images/dashboard.png");
+}
+.submen-dashboard:selected{
+    -fx-graphic: url("../images/dashboard.png");
+}
+.menus {
+    -fx-background-color: #4e4760;
+    -fx-text-fill: #fff;
+    -fx-pref-height: 35px;
+    -fx-min-height: 35px;
+    -fx-padding: 0 0 0 20;
+    -fx-font-size: 13px;
+    -fx-font-family: 'Open Sans', sans-serif;
+    -fx-cursor: hand;
+    -fx-graphic-text-gap: 10;
+}
+
+.homeTog:hover{
+    -fx-graphic:url(../images/homeRedsized.png);
+}
+.homeTog:selected{
+    -fx-graphic:url(../images/homeRedsized.png);
+}
+
+
+.storeTog:hover{
+    -fx-graphic:url(../images/stockRed.png);
+}
+.storeTog:selected{
+    -fx-graphic:url(../images/stockRed.png);
+}
+
+
+.custTog:hover{
+    -fx-graphic:url(../images/employeRed.png);
+}
+.custTog:selected{
+    -fx-graphic:url(../images/employeRed.png);
+}
+
+
+.suppTog:hover{
+    -fx-graphic:url(../img/sell2Red.png);
+}
+.suppTog:selected{
+    -fx-graphic:url(../img/sell2Red.png);
+}
+
+.stockTog:hover{
+    -fx-graphic:url(../img/productRed.png);
+}
+.stockTog:selected{
+    -fx-graphic:url(../img/productRed.png);
+}
+
+.userTog:hover{
+    -fx-graphic:url(../img/suppliersRed.png);
+}
+.userTog:selected{
+    -fx-graphic:url(../img/suppliersRed.png);
+}
+.refresh{
+    -fx-background-color: #ffffff;
+}
+.refresh:hover{
+    -fx-background-color: #cccccc;
+    -fx-background-radius: 0px;
+
+}
+.refresh:selected{
+    -fx-background-color: #999999;
+    -fx-background-radius: 0px;
+}
+.refresh:pressed{
+    -fx-background-color: #666666;
+    -fx-background-radius: 0px;
+}
+
+.table-view .table-cell{
+    -fx-font-size:14px;         
+}
+.save{
+    -fx-background-color:  #53b04e;
+}
+.save:hover{
+    -fx-background-color: #27e544;
+    -fx-background-radius: 0px;
+
+}
+.save:selected{
+    -fx-background-color: #0a6807;
+    -fx-background-radius: 0px;
+}
+.save:pressed{
+    -fx-background-color: #105800;
+    -fx-background-radius: 0px;
+}
+
+.reset{
+    -fx-background-color:   #ff5252;
+}
+.reset:hover{
+    -fx-background-color:  #f87d7d;
+    -fx-background-radius: 0px;
+
+}
+.reset:selected{
+    -fx-background-color: #fb1b1b;
+    -fx-background-radius: 0px;
+}
+.reset:pressed{
+    -fx-background-color: #e50c0c;
+    -fx-background-radius: 0px;
+}
+.jfx-snackbar-toast{
+    -fx-text-fill:red;
+    -fx-font-size:14px;
+    -fx-alignment:center;
+}

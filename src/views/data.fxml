@@ -1,0 +1,1036 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="689.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DataController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#onQuitApplication" text="Quit Application" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MRC Connect" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="661.0" prefWidth="1392.0">
+         <children>
+            <GridPane prefHeight="657.0" prefWidth="1299.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="161.0" minHeight="0.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="340.0" minHeight="10.0" prefHeight="287.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="166.0" minHeight="6.0" prefHeight="9.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="234.0" minHeight="10.0" prefHeight="231.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3">
+                     <tabs>
+                        <Tab text="Dashboard">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="535.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="0.0" prefWidth="0.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="198.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="0.0" prefWidth="0.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="198.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="0.0" prefWidth="0.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="198.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="0.0" prefWidth="0.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="0.0" prefWidth="198.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="0.0" prefWidth="0.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints maxHeight="183.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="251.0" minHeight="10.0" prefHeight="154.0" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="130.0" minHeight="10.0" prefHeight="28.070831298828125" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="141.92916870117188" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="181.0" minHeight="10.0" prefHeight="157.61279296875" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="181.0" minHeight="7.75421142578125" prefHeight="14.38720703125" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="181.0" minHeight="10.0" prefHeight="19.7340087890625" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <VBox style="-fx-background-color: fa6767;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="42.0" prefWidth="258.0" text="Successful Recruited" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Arial Black" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="dbSuccessfulLabel" alignment="CENTER" prefHeight="94.0" prefWidth="256.0" text="950" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <PieChart fx:id="dbGenderDistributionPie" prefHeight="118.0" prefWidth="255.0" GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.rowSpan="3" />
+                                          <PieChart fx:id="dbAEnSAEPie" GridPane.columnIndex="5" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+                                          <TableView fx:id="dbVisitsCounts" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.rowSpan="3">
+                                            <columns>
+                                              <TableColumn fx:id="dbVisitsNameCol" prefWidth="75.0" text="Visit" />
+                                              <TableColumn fx:id="dbTotalVisitsCol" prefWidth="75.0" text="Total" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                          <VBox style="-fx-background-color: #49ad6a;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="42.0" prefWidth="258.0" text="Active participants" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Arial Black" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="dbActiveParticipants" alignment="CENTER" prefHeight="94.0" prefWidth="256.0" text="750" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox style="-fx-background-color: #539af2;" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="42.0" prefWidth="258.0" text="Withdrawals" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Arial Black" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="dbWithdrawalsLabel" alignment="CENTER" prefHeight="94.0" prefWidth="256.0" text="47" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <VBox style="-fx-background-color: #e77c52;" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="42.0" prefWidth="258.0" text="Lost to follow-up" textFill="WHITE">
+                                                   <font>
+                                                      <Font name="Arial Black" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="dbLostToFollowUpLabel" alignment="CENTER" prefHeight="94.0" prefWidth="256.0" text="47" textFill="WHITE">
+                                                   <font>
+                                                      <Font size="30.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </VBox>
+                                          <PieChart fx:id="dbVisitsPerformsAndSkippedPie" prefHeight="118.0" prefWidth="255.0" GridPane.columnIndex="3" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+                                       </children>
+                                    </GridPane>
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Demorgraphic Reports">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="537.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="642.6415405273438" minWidth="10.0" prefWidth="642.6415405273438" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.8490600585938" minWidth="7.87518310546875" prefWidth="15.3250732421875" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="648.6248168945312" minWidth="10.0" prefWidth="641.1749267578125" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <GridPane GridPane.rowSpan="3">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.019287109375" minWidth="0.0" prefWidth="32.07715606689453" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="253.92284393310547" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.61572265625" minWidth="10.0" prefWidth="285.4959716796875" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.91448974609375" minWidth="10.0" prefWidth="70.5040283203125" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints maxHeight="80.75047302246094" minHeight="10.0" prefHeight="34.752410888671875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="140.8723602294922" minHeight="2.2571868896484375" prefHeight="59.35917663574219" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="305.0735321044922" minHeight="10.0" prefHeight="73.1328125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="335.8744812011719" minHeight="10.0" prefHeight="70.8045654296875" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="193.6954345703125" minHeight="10.0" prefHeight="193.6954345703125" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="106.79156494140625" minHeight="10.0" prefHeight="106.79156494140625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="78.78680419921875" minHeight="10.0" prefHeight="33.20843505859375" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="drSearchTextfield" prefHeight="46.0" prefWidth="650.0" promptText="Search by name or subject number" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                                <TableView fx:id="drTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="4">
+                                                  <columns>
+                                                    <TableColumn fx:id="drSidCol" prefWidth="75.0" text="SID" />
+                                                    <TableColumn fx:id="drNameCol" prefWidth="75.0" text="Name" />
+                                                  </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <Button mnemonicParsing="false" onAction="#drOnExportDemorgraphicData" prefHeight="74.0" prefWidth="86.0" text="Export" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                                <Button mnemonicParsing="false" onAction="#drOnView" prefHeight="74.0" prefWidth="86.0" text="View" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="2" GridPane.rowSpan="3">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.03338623046875" minWidth="10.0" prefWidth="43.7757568359375" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.2242431640625" minWidth="10.0" prefWidth="156.28375244140625" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.71624755859375" minWidth="10.0" prefWidth="177.68359375" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.31640625" minWidth="10.0" prefWidth="138.31640625" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label prefHeight="44.0" prefWidth="173.0" text="Status:" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="SID:" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Name:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="DOB:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Community:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Field Worker:" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Study Group:" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Contact:" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Age as at now:" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drSidLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drDOBLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drCommunityLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drFieldWorkerLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drStudyGroupLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drContactLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drAgeLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="9">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drNameLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Gender:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drGenderLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="drStatusLabel" prefHeight="43.0" prefWidth="200.0" text="Valid" GridPane.columnIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="24.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <Separator orientation="VERTICAL" prefHeight="537.0" prefWidth="25.0" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+                                       </children>
+                                    </GridPane>
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Visits Reports">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="537.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="642.9903564453125" minWidth="10.0" prefWidth="642.9903564453125" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="429.0096740722656" minWidth="10.0" prefWidth="14.0096435546875" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="643.4855346679688" minWidth="10.0" prefWidth="643.4855346679688" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Separator orientation="VERTICAL" prefHeight="179.0" prefWidth="14.0" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+                                          <GridPane GridPane.rowSpan="3">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.0096664428711" minWidth="10.0" prefWidth="25.198219299316406" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.8017807006836" minWidth="10.0" prefWidth="111.95407104492188" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.755859375" minWidth="10.0" prefWidth="93.01692199707031" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.755859375" minWidth="10.0" prefWidth="95.02902221679688" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.6035461425781" minWidth="10.0" prefWidth="95.0120849609375" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.79693603515625" minWidth="10.0" prefWidth="97.4879150390625" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.79693603515625" minWidth="10.0" prefWidth="98.9830322265625" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.90093994140625" minWidth="10.0" prefWidth="29.0169677734375" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints maxHeight="63.0120849609375" minHeight="10.0" prefHeight="20.50482177734375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="63.0120849609375" minHeight="0.0" prefHeight="29.49517822265625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="44.533843994140625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="144.79934692382812" minHeight="10.0" prefHeight="52.46856689453125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.75827026367188" minHeight="10.0" prefHeight="40.53143310546875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.75827026367188" minHeight="10.0" prefHeight="59.236907958984375" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="156.74859619140625" minHeight="10.0" prefHeight="60.521759033203125" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="157.73654174804688" minHeight="10.0" prefHeight="61.009674072265625" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="143.75827026367188" minHeight="10.0" prefHeight="100.49032592773438" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="99.84527587890625" minHeight="10.0" prefHeight="85.879150390625" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <ComboBox fx:id="vrSelectVisitForExportCombo" prefHeight="45.0" prefWidth="288.0" promptText="Select visit" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                                                <Button mnemonicParsing="false" onAction="#vrExportVisit" prefHeight="41.0" prefWidth="91.0" text="Visit" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                                <Button mnemonicParsing="false" onAction="#vrExportSkippedVisit" prefHeight="41.0" prefWidth="94.0" text="Skip" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                                                <Label prefHeight="22.0" prefWidth="136.0" text="Export:" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Arial Italic" size="12.0" />
+                                                   </font>
+                                                </Label>
+                                                <Button mnemonicParsing="false" onAction="#vrExportOutWindow" prefHeight="41.0" prefWidth="98.0" text="Out window" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                                                <TableView fx:id="vrSummayTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="5" GridPane.rowSpan="5">
+                                                  <columns>
+                                                    <TableColumn prefWidth="75.0" text="Visit" />
+                                                    <TableColumn prefWidth="75.0" text="Total" />
+                                                  </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <Button mnemonicParsing="false" onAction="#vrSummaryExportVisits" prefHeight="60.0" prefWidth="98.0" text="Summary" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                                                <Button mnemonicParsing="false" onAction="#vrExportSummarySkipped" prefHeight="60.0" prefWidth="98.0" text="Skip" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                                                <Button mnemonicParsing="false" onAction="#vrExportSummaryOutWindow" prefHeight="60.0" prefWidth="98.0" text="Out Window" GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                                                <Label alignment="BOTTOM_LEFT" prefHeight="46.0" prefWidth="110.0" text="From:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Bold Italic" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label alignment="BOTTOM_LEFT" prefHeight="46.0" prefWidth="110.0" text="To:" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Bold Italic" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker fx:id="vrStartDateFrom" prefHeight="32.0" prefWidth="194.0" promptText="Start Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                                                <DatePicker fx:id="vrEndDateTo" prefHeight="32.0" prefWidth="194.0" promptText="End Date" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="4" />
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="2" GridPane.rowSpan="3">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="34.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="121.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="109.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="89.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="54.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="65.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="4.0" prefWidth="116.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="85.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="27.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="79.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <ComboBox fx:id="vrSelectSubjectNumbeCombo" prefHeight="43.0" prefWidth="368.0" promptText="Select Subject Number" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+                                                <Label prefHeight="43.0" prefWidth="221.0" text="Next Visit:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="43.0" prefWidth="221.0" text="Start Date:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="43.0" prefWidth="221.0" text="End Date:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="vrNextVisitLabel" prefHeight="34.0" prefWidth="176.0" text="Visit 23" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="vrStartDateLabel" prefHeight="34.0" prefWidth="176.0" text="23 Mar 2019" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="vrEndDateLabel" prefHeight="34.0" prefWidth="176.0" text="23 Apr 2019" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="43.0" prefWidth="221.0" text="Days left:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Arial" size="13.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="vrDaysLeft" prefHeight="34.0" prefWidth="176.0" text="21 days" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <TableView fx:id="vrTableViewSubjectProject" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="7" GridPane.rowIndex="6" GridPane.rowSpan="5">
+                                                  <columns>
+                                                    <TableColumn fx:id="vrVisitCol" prefWidth="75.0" text="Visit" />
+                                                    <TableColumn fx:id="vrStartDateCol" prefWidth="75.0" text="Start Date" />
+                                                      <TableColumn fx:id="vrEndDateCol" prefWidth="75.0" text="End Date" />
+                                                      <TableColumn fx:id="vrActualDateCol" prefWidth="75.0" text="Actual Date" />
+                                                      <TableColumn fx:id="vrWindowPeriodCol" prefWidth="75.0" text="Window Period" />
+                                                  </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Name:" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Group:" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="DOB:" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Comm:" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                                                <Label fx:id="vrNameLabel" prefHeight="38.0" prefWidth="318.0" text="Reindoff Agogo" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="vrGroupLabel" prefHeight="35.0" prefWidth="430.0" text="Control" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="vrDateOfBirthLabel" prefHeight="35.0" prefWidth="430.0" text="23 May 2019" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="vrCommunityLabel" prefHeight="35.0" prefWidth="430.0" text="Konongo" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Withdrawals Reports">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="537.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="642.6415405273438" minWidth="10.0" prefWidth="642.6415405273438" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="529.8490600585938" minWidth="7.87518310546875" prefWidth="15.3250732421875" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="648.6248168945312" minWidth="10.0" prefWidth="641.1749267578125" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane GridPane.rowSpan="3">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.019287109375" minWidth="0.0" prefWidth="32.07715606689453" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="253.92284393310547" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.61572265625" minWidth="10.0" prefWidth="285.4959716796875" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.91448974609375" minWidth="10.0" prefWidth="70.5040283203125" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="80.75047302246094" minHeight="10.0" prefHeight="34.752410888671875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="140.8723602294922" minHeight="2.2571868896484375" prefHeight="59.35917663574219" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="305.0735321044922" minHeight="10.0" prefHeight="73.1328125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="335.8744812011719" minHeight="10.0" prefHeight="70.8045654296875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="193.6954345703125" minHeight="10.0" prefHeight="193.6954345703125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="106.79156494140625" minHeight="10.0" prefHeight="106.79156494140625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="78.78680419921875" minHeight="10.0" prefHeight="33.20843505859375" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="wrSearchTextfield" prefHeight="46.0" prefWidth="650.0" promptText="Search by name or subject number" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                                <TableView fx:id="wrTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="4">
+                                                   <columns>
+                                                      <TableColumn fx:id="wrSIDCol" prefWidth="75.0" text="SID" />
+                                                      <TableColumn fx:id="wrDateWithdrawalCol" prefWidth="75.0" text="Date" />
+                                                      <TableColumn fx:id="wrDecisionCol" prefWidth="75.0" text="Decision" />
+                                                   </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <Button mnemonicParsing="false" onAction="#wrExportAll" prefHeight="74.0" prefWidth="86.0" text="Export" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                                <Button mnemonicParsing="false" onAction="#wrView" prefHeight="74.0" prefWidth="86.0" text="View" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="2" GridPane.rowSpan="3">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.03338623046875" minWidth="10.0" prefWidth="43.7757568359375" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="198.2242431640625" minWidth="10.0" prefWidth="156.28375244140625" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="204.71624755859375" minWidth="10.0" prefWidth="177.68359375" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="138.31640625" minWidth="10.0" prefWidth="138.31640625" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="SID:" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Name:" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="DOW:" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Decision" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="User" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="wrSIDLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="wrDateOfWithdrawalLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="wrDecisionLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="wrUserLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="wrNameLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="Reason:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="wrReasonLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="47.0" prefWidth="164.0" text="TOTAL:" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Arial" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="wrTotalLabel" prefHeight="47.0" prefWidth="320.0" text="Not selected" GridPane.columnIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <Separator orientation="VERTICAL" prefHeight="537.0" prefWidth="25.0" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="Projected Scheduling">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane layoutX="189.0" layoutY="81.0" prefHeight="537.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1098.0725708007812" minWidth="10.0" prefWidth="38.027156829833984" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1098.0725708007812" minWidth="10.0" prefWidth="308.94158935546875" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1098.0725708007812" minWidth="10.0" prefWidth="24.867767333984375" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1026.97119140625" minWidth="10.0" prefWidth="785.6322326660156" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1026.97119140625" minWidth="10.0" prefWidth="105.4019775390625" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="423.4183349609375" minWidth="0.0" prefWidth="46.972900390625" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints maxHeight="117.5631103515625" minHeight="0.0" prefHeight="27.587356567382812" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="269.0" minHeight="10.0" prefHeight="53.39610290527344" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="320.6974182128906" minHeight="10.0" prefHeight="111.60389709472656" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="320.6974182128906" minHeight="10.0" prefHeight="214.67352294921875" vgrow="SOMETIMES" />
+                                        <RowConstraints maxHeight="190.62335205078125" minHeight="10.0" prefHeight="190.62335205078125" vgrow="SOMETIMES" />
+                                          <RowConstraints maxHeight="134.56103515625" minHeight="10.0" prefHeight="33.37664794921875" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TableView fx:id="psTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                                            <columns>
+                                              <TableColumn fx:id="psSIDCol" prefWidth="75.0" text="SID" />
+                                              <TableColumn fx:id="psPreviousDateCol" prefWidth="75.0" text="Previous Visit Date" />
+                                                <TableColumn fx:id="psNextVisitCol" prefWidth="75.0" text="Next Visit Date" />
+                                                <TableColumn fx:id="psStartDateCol" prefWidth="75.0" text="Start Date" />
+                                                <TableColumn fx:id="psEndDateCol" prefWidth="75.0" text="End Date" />
+                                                <TableColumn fx:id="psDaysLeftCol" prefWidth="75.0" text="Days Left" />
+                                            </columns>
+                                             <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                             </columnResizePolicy>
+                                          </TableView>
+                                          <Button mnemonicParsing="false" onAction="#psExportedSchedule" prefHeight="116.0" prefWidth="121.0" text="Export all" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                          <TextField fx:id="psSearchTextField" prefHeight="45.0" prefWidth="985.0" promptText="Search by Subject Number" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <ComboBox fx:id="psSelectVisitCombo" prefHeight="41.0" prefWidth="307.0" promptText="Select Visit" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children></AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="SAE Reports">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="537.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="642.9903564453125" minWidth="10.0" prefWidth="642.9903564453125" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="429.0096740722656" minWidth="10.0" prefWidth="14.0096435546875" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="643.4855346679688" minWidth="10.0" prefWidth="643.4855346679688" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Separator orientation="VERTICAL" prefHeight="179.0" prefWidth="14.0" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+                                          <GridPane GridPane.rowSpan="3">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.0096664428711" minWidth="10.0" prefWidth="25.198219299316406" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.8017807006836" minWidth="10.0" prefWidth="111.95407104492188" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.8017807006836" minWidth="10.0" prefWidth="111.95407104492188" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.755859375" minWidth="10.0" prefWidth="93.01692199707031" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.755859375" minWidth="10.0" prefWidth="95.02902221679688" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.6035461425781" minWidth="10.0" prefWidth="95.0120849609375" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.79693603515625" minWidth="10.0" prefWidth="97.4879150390625" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.79693603515625" minWidth="10.0" prefWidth="98.9830322265625" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.90093994140625" minWidth="10.0" prefWidth="29.0169677734375" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="63.0120849609375" minHeight="10.0" prefHeight="20.50482177734375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="63.0120849609375" minHeight="0.0" prefHeight="51.8016357421875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="37.430694580078125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="144.79934692382812" minHeight="10.0" prefHeight="35.84918212890625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.75827026367188" minHeight="10.0" prefHeight="42.15081787109375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.75827026367188" minHeight="10.0" prefHeight="53.802978515625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.74859619140625" minHeight="10.0" prefHeight="45.53326416015625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="157.73654174804688" minHeight="10.0" prefHeight="45.96673583984375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="143.75827026367188" minHeight="10.0" prefHeight="20.15557861328125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="128.59979248046875" minHeight="10.0" prefHeight="56.84442138671875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="140.544189453125" minHeight="10.0" prefHeight="134.48870849609375" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <ComboBox fx:id="srSelectSubjectCombo" prefHeight="43.0" prefWidth="368.0" promptText="Select Subject Number" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Name:" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                                                <Label fx:id="srNameLabel" prefHeight="38.0" prefWidth="318.0" text="Reindoff Agogo" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Group:" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="DOB:" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                                                <Label fx:id="srGroupLabel" prefHeight="35.0" prefWidth="430.0" text="Control" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="srDOBLabel" prefHeight="35.0" prefWidth="430.0" text="23 May 2019" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="srDiagnosis" prefHeight="41.0" prefWidth="250.0" promptText="Diagnosis" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="7" />
+                                                <Button mnemonicParsing="false" onAction="#srSaveSAE" prefHeight="62.0" prefWidth="196.0" text="Save" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="9" />
+                                                <Button mnemonicParsing="false" onAction="#srClear" prefHeight="62.0" prefWidth="196.0" text="Clear" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Dignosis:" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="48.0" prefWidth="200.0" text="Admission date:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="45.0" prefWidth="179.0" text="Dischage date:" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker fx:id="srAdmissionDate" prefHeight="42.0" prefWidth="413.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="5" />
+                                                <DatePicker fx:id="srDischargeDate" prefHeight="42.0" prefWidth="340.0" GridPane.columnIndex="4" GridPane.columnSpan="4" GridPane.rowIndex="6" />
+                                                <Label fx:id="vrDateOfBirthLabel11" prefHeight="35.0" prefWidth="430.0" text="23 May 2019" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane prefHeight="537.0" prefWidth="644.0" GridPane.columnIndex="2" GridPane.rowSpan="3">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="34.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="121.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="109.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="89.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="54.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="65.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="4.0" prefWidth="116.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="85.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="27.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="74.388671875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="36.611328125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="41.10003662109375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="59.89996337890625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="115.92193603515625" minHeight="10.0" prefHeight="109.86639404296875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="17.13360595703125" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="3" GridPane.rowSpan="7">
+                                                   <columns>
+                                                      <TableColumn fx:id="srSIDCol" prefWidth="75.0" text="Visit" />
+                                                      <TableColumn fx:id="srAdmissionDateCol" prefWidth="75.0" text="Admission Date" />
+                                                      <TableColumn fx:id="srDischargeDateCol" prefWidth="75.0" text="Discharge Date" />
+                                                      <TableColumn fx:id="srDiagnosisCol" prefWidth="75.0" text="Diagnosis" />
+                                                      <TableColumn fx:id="srUserCol" prefWidth="75.0" text="User" />
+                                                   </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <TextField fx:id="srSearchTextBox" prefHeight="45.0" prefWidth="985.0" promptText="Search by Subject Number" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="2" />
+                                                <Button mnemonicParsing="false" onAction="#srUpdateSAE" prefHeight="73.0" prefWidth="102.0" text="Update" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Total SAEs:" GridPane.columnIndex="1" />
+                                                <Label fx:id="srTotalSAEsLabel" prefHeight="38.0" prefWidth="318.0" text="167" GridPane.columnIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Button mnemonicParsing="false" onAction="#srDeleteSAE" prefHeight="73.0" prefWidth="102.0" text="Delete" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+                                                <Button mnemonicParsing="false" onAction="#srExportAllorSelectedSAE" prefHeight="73.0" prefWidth="102.0" text="Export" GridPane.columnIndex="7" GridPane.rowIndex="6" GridPane.rowSpan="2" />
+                                                <DatePicker fx:id="srAdmissionDateSearch" prefHeight="42.0" prefWidth="413.0" promptText="Admission Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                                <DatePicker fx:id="srDischargeDateSearch" prefHeight="42.0" prefWidth="413.0" promptText="Discharge Date" GridPane.columnIndex="4" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                        <Tab text="AE Reports">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <GridPane prefHeight="537.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="642.9903564453125" minWidth="10.0" prefWidth="642.9903564453125" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="429.0096740722656" minWidth="10.0" prefWidth="14.0096435546875" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="643.4855346679688" minWidth="10.0" prefWidth="643.4855346679688" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Separator orientation="VERTICAL" prefHeight="179.0" prefWidth="14.0" GridPane.columnIndex="1" GridPane.rowSpan="3" />
+                                          <GridPane GridPane.rowSpan="3">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="103.0096664428711" minWidth="10.0" prefWidth="30.5" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.8017807006836" minWidth="10.0" prefWidth="117.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="188.8017807006836" minWidth="10.0" prefWidth="85.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.755859375" minWidth="10.0" prefWidth="34.5" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.755859375" minWidth="10.0" prefWidth="95.02902221679688" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.6035461425781" minWidth="10.0" prefWidth="95.0120849609375" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.79693603515625" minWidth="10.0" prefWidth="106.5" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.79693603515625" minWidth="10.0" prefWidth="82.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.90093994140625" minWidth="10.0" prefWidth="29.0169677734375" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="63.0120849609375" minHeight="10.0" prefHeight="20.50482177734375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="63.0120849609375" minHeight="0.0" prefHeight="51.8016357421875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="37.430694580078125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="144.79934692382812" minHeight="10.0" prefHeight="35.84918212890625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.75827026367188" minHeight="10.0" prefHeight="42.15081787109375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.75827026367188" minHeight="10.0" prefHeight="53.802978515625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="156.74859619140625" minHeight="10.0" prefHeight="45.53326416015625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="157.73654174804688" minHeight="10.0" prefHeight="45.96673583984375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="143.75827026367188" minHeight="10.0" prefHeight="20.15557861328125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="173.0" minHeight="10.0" prefHeight="173.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="140.544189453125" minHeight="10.0" prefHeight="17.5" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <ComboBox fx:id="arSelectSubjectCombo" prefHeight="43.0" prefWidth="368.0" promptText="Select Subject Number" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Name:" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                                <Label fx:id="arNameLabel" prefHeight="38.0" prefWidth="318.0" text="Reindoff Agogo" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="Group:" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                                <Label prefHeight="48.0" prefWidth="109.0" text="DOB:" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                                                <Label fx:id="arGroupLabel" prefHeight="35.0" prefWidth="430.0" text="Control" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="arDOBLabel" prefHeight="35.0" prefWidth="430.0" text="23 May 2019" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Arial Black" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <DatePicker fx:id="arSearchByDate" prefHeight="42.0" prefWidth="340.0" promptText="Visit Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                                                <Label fx:id="arDateNow" prefHeight="35.0" prefWidth="430.0" text="23 May 2019" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <TableView fx:id="arOPDTable" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="5" GridPane.rowSpan="5">
+                                                  <columns>
+                                                    <TableColumn fx:id="arSIDCol" prefWidth="75.0" text="SID" />
+                                                    <TableColumn fx:id="arVisitDateCol" prefWidth="75.0" text="Visit Date" />
+                                                      <TableColumn fx:id="arTimeCol" prefWidth="75.0" text="Time" />
+                                                      <TableColumn fx:id="arTempCol" prefWidth="75.0" text="Temp" />
+                                                  </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <Button mnemonicParsing="false" onAction="#arExportStores" prefHeight="57.0" prefWidth="107.0" text="Export" GridPane.columnIndex="7" GridPane.rowIndex="5" />
+                                             </children>
+                                          </GridPane>
+                                          <GridPane prefHeight="537.0" prefWidth="644.0" GridPane.columnIndex="2" GridPane.rowSpan="3">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="34.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="216.0" minWidth="10.0" prefWidth="121.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="109.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="122.0" minWidth="10.0" prefWidth="89.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="98.0" minWidth="10.0" prefWidth="54.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="157.0" minWidth="10.0" prefWidth="65.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="4.0" prefWidth="116.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="121.0" minWidth="10.0" prefWidth="85.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="27.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="108.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="126.0" minHeight="10.0" prefHeight="74.388671875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="155.0" minHeight="10.0" prefHeight="36.611328125" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="41.10003662109375" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="59.89996337890625" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="115.92193603515625" minHeight="10.0" prefHeight="109.86639404296875" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="106.0" minHeight="10.0" prefHeight="17.13360595703125" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="3" GridPane.rowSpan="7">
+                                                   <columns>
+                                                      <TableColumn fx:id="srSIDLabCol" prefWidth="75.0" text="SID" />
+                                                      <TableColumn fx:id="arVisitDateLabCol" prefWidth="75.0" text="Visit Date" />
+                                                      <TableColumn fx:id="arFTALabCol" prefWidth="75.0" text="FTA" />
+                                                      <TableColumn fx:id="arRequisitionLabCol" prefWidth="75.0" text="Requisition" />
+                                                      <TableColumn fx:id="arUserLabCol" prefWidth="75.0" text="User" />
+                                                   </columns>
+                                                   <columnResizePolicy>
+                                                      <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                   </columnResizePolicy>
+                                                </TableView>
+                                                <TextField fx:id="arLabSearchTextfield" prefHeight="45.0" prefWidth="985.0" promptText="Search by Subject Number, Slide number of Requisition" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="2" />
+                                                <Button mnemonicParsing="false" onAction="#arExportLabs" prefHeight="73.0" prefWidth="102.0" text="Export" GridPane.columnIndex="7" GridPane.rowIndex="3" GridPane.rowSpan="2" />
+                                                <DatePicker fx:id="arSearchLabByDate" prefHeight="42.0" prefWidth="413.0" promptText="Search by Date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
+                     </tabs>
+                  </TabPane>
+                  <BorderPane style="-fx-background-color: #8d2502;" GridPane.columnSpan="2">
+                     <bottom>
+                        <Label fx:id="userLogin" alignment="TOP_CENTER" contentDisplay="TOP" prefHeight="17.0" prefWidth="188.0" text="User: Albert" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER" />
+                     </bottom>
+                     <center>
+                        <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" prefHeight="31.0" prefWidth="439.0" text="DATA CONNECT" textFill="#fdfff1" BorderPane.alignment="CENTER">
+                           <font>
+                              <Font name="Bodoni MT Bold" size="36.0" />
+                           </font>
+                        </Label>
+                     </center>
+                     <top>
+                        <BorderPane prefHeight="23.0" prefWidth="1299.0" BorderPane.alignment="CENTER">
+                           <right>
+                              <Button mnemonicParsing="false" onAction="#fieldConnectLogout" text="Logout" BorderPane.alignment="CENTER" />
+                           </right>
+                        </BorderPane>
+                     </top>
+                  </BorderPane>
+               </children>
+            </GridPane>
+         </children>
+      </AnchorPane>
+      <Label alignment="BOTTOM_LEFT" maxHeight="500.0" prefHeight="20.0" prefWidth="1300.0" text="Clinical Research Tools 1.0 © GeoCEMS Lab." textFill="#aeacac">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+  </children>
+</VBox>
