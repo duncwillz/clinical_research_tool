@@ -29,9 +29,9 @@ public class DBConnect extends ConnectAbstract {
             //the ip will will call a class from the static object and check what the ip is before sending to this 
         //con = DriverManager.getConnection("jdbc:mysql://10.98.190.19:3306/backend?autoRconnect=true&useSSL=false", "root", "");
 //        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/storeConnect?autoRconnect=true&useSSL=false", "root", "");
-//           con = DriverManager.getConnection("jdbc:mysql://192.168.64.2:3306/storeConnect?autoRconnect=true&useSSL=false", "root", "root");
+           con = DriverManager.getConnection("jdbc:mysql://192.168.64.2:3306/storeConnect?autoRconnect=true&useSSL=false", "root", "root");
 //        con = DriverManager.getConnection("jdbc:mysql://10.98.190.151:3306/storeConnect?autoRconnect=true&useSSL=false", "root", "");
-        con = DriverManager.getConnection("jdbc:mysql://10.98.190.160:3306/storeConnect?autoRconnect=true&useSSL=false", "root", "mrcdata2019");
+//        con = DriverManager.getConnection("jdbc:mysql://10.98.190.160:3306/storeConnect?autoRconnect=true&useSSL=false", "root", "mrcdata2019");
 
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();

@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Daily;
 import model.Inpatients;
+import model.Intervals;
 import model.Item;
 import model.Messaging;
 import model.Receive;
@@ -965,6 +966,30 @@ public abstract class ConnectAbstract {
                 model.setWdecisionby(rs.getString("wdecisionby"));
                 model.setWuser(rs.getInt("wuser"));
                 model.setWdatecreated(rs.getDate("wdatecreated"));
+                data.add(model);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return data;
+    }
+    
+//    INTERVAL
+    public List<Intervals> getAllIntervals(String visit) {
+        List<Intervals> data = new ArrayList();
+        try {
+            String sql ="SELECT visits.vssubjectnumber , visits.vsvisitdate FROM `visits` WHERE visits.vsvisitdate = ? ORDER BY visits.vssubjectnumber DESC";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setString(0, visit);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                Intervals model = new Intervals(rs.getInt("wid"));
+                model.setPreviousVisit(rs.getDate(""));
+                model.setStartDate(md.calcVisitInterval(rs.getDate(""),visit)[0]);
+                model.setEndDate(md.calcVisitInterval(rs.getDate(""),visit)[1]);
+                model.setDaysLeft(md.calcDaysLeft(model.getEndDate()));
                 data.add(model);
             }
         } catch (SQLException ex) {
