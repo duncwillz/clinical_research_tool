@@ -6,6 +6,7 @@
 package controllers;
 
 import bloc.DailyVisitsBloc;
+import bloc.IntervalBloc;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -39,6 +40,7 @@ public class FieldController implements Initializable {
     ComboBoxAutoCompletes combo = new ComboBoxAutoCompletes();
     mediator md = mediator.md();
     DailyVisitsBloc dvBloc = DailyVisitsBloc.dvBloc();
+    IntervalBloc inBloc = IntervalBloc.intervalBloc();
 
     @FXML
     private ComboBox<String> vsSelectVisitCombo;
@@ -95,11 +97,7 @@ public class FieldController implements Initializable {
     @FXML
     private TableColumn<?, ?> vsViewDetailsCol1;
     @FXML
-    private TextField vsSubjectNumber11;
-    @FXML
     private Button vsSaveButton11;
-    @FXML
-    private CheckBox vsSkippedCheckbox11;
     @FXML
     private GridPane vsGridPane11;
     @FXML
@@ -178,6 +176,24 @@ public class FieldController implements Initializable {
     private ComboBox<?> hvSubjectSelectCombo;
     @FXML
     private Label hvSubjectCOMLabel;
+    @FXML
+    private GridPane vsGridPane12;
+    @FXML
+    private TextField inSearchTextField;
+    @FXML
+    private TableColumn<?, ?> inPIDCol;
+    @FXML
+    private TableColumn<?, ?> inPrevVistCol;
+    @FXML
+    private TableColumn<?, ?> inStartDateCol;
+    @FXML
+    private TableColumn<?, ?> inEndDateCol;
+    @FXML
+    private TableColumn<?, ?> inDaysLeftCol;
+    @FXML
+    private ComboBox<?> inselectVisitCombo;
+    @FXML
+    private TableView<?> intTableView;
 
     /**
      * Initializes the controller class.
@@ -186,9 +202,7 @@ public class FieldController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         dvBloc.populateCombox(vsSelectVisitCombo, vsSearchVisitCombo);
-
         initializeVisitBloc();
-
         userLoggedIn();
     }
 
@@ -250,6 +264,11 @@ public class FieldController implements Initializable {
         combo.new ComboBoxAutoComplete<String>(vsSearchVisitCombo);
     }
 
+    public void initIntervalBloc(){
+        inBloc.populateCombox(inselectVisitCombo);
+        inBloc.onVisitSelected(inselectVisitCombo, intTableView);
+    }
+    
     @FXML
     private void fieldConnectLogout(ActionEvent event) {
         md.callback(event, "/views/login.fxml", false);
@@ -288,6 +307,10 @@ public class FieldController implements Initializable {
 
     @FXML
     private void wdExportAll(ActionEvent event) {
+    }
+
+    @FXML
+    private void inExport(ActionEvent event) {
     }
 
 
