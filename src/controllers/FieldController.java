@@ -25,6 +25,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import model.Intervals;
 import model.View;
 import model.Visits;
 import utils.ComboBoxAutoCompletes;
@@ -181,19 +182,19 @@ public class FieldController implements Initializable {
     @FXML
     private TextField inSearchTextField;
     @FXML
-    private TableColumn<?, ?> inPIDCol;
+    private TableColumn<Intervals, Integer> inPIDCol;
     @FXML
-    private TableColumn<?, ?> inPrevVistCol;
+    private TableColumn<Intervals, Date> inPrevVistCol;
     @FXML
-    private TableColumn<?, ?> inStartDateCol;
+    private TableColumn<Intervals, Date> inStartDateCol;
     @FXML
-    private TableColumn<?, ?> inEndDateCol;
+    private TableColumn<Intervals, Date> inEndDateCol;
     @FXML
-    private TableColumn<?, ?> inDaysLeftCol;
+    private TableColumn<Intervals, Integer> inDaysLeftCol;
     @FXML
-    private ComboBox<?> inselectVisitCombo;
+    private ComboBox<String> inselectVisitCombo;
     @FXML
-    private TableView<?> intTableView;
+    private TableView<Intervals> intTableView;
 
     /**
      * Initializes the controller class.
@@ -203,6 +204,7 @@ public class FieldController implements Initializable {
         // TODO
         dvBloc.populateCombox(vsSelectVisitCombo, vsSearchVisitCombo);
         initializeVisitBloc();
+        initIntervalBloc();
         userLoggedIn();
     }
 
@@ -266,7 +268,8 @@ public class FieldController implements Initializable {
 
     public void initIntervalBloc(){
         inBloc.populateCombox(inselectVisitCombo);
-        inBloc.onVisitSelected(inselectVisitCombo, intTableView);
+        inBloc.onVisitSelected(inselectVisitCombo, intTableView, inPIDCol, inPrevVistCol, inStartDateCol, inEndDateCol, inDaysLeftCol);
+        inBloc.populateTable(intTableView,inselectVisitCombo, inPIDCol, inPrevVistCol, inStartDateCol, inEndDateCol, inDaysLeftCol);
     }
     
     @FXML

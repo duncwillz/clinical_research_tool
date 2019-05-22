@@ -6,8 +6,10 @@
 
 package bloc;
 
+import dao.DBConnect;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.function.Predicate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -17,10 +19,13 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Daily;
 import model.Inpatients;
+import model.Intervals;
 import model.Visits;
 import utils.mediator;
 
@@ -34,7 +39,7 @@ public class IntervalBloc {
     
     private static final IntervalBloc INT_BLOC = new IntervalBloc();
     
-    ObservableList<Visits> data;
+    ObservableList<Intervals> data;
     private final SimpleDateFormat format = new SimpleDateFormat("E, dd-MMM-yyyy");
 
     private IntervalBloc() {
@@ -46,7 +51,7 @@ public class IntervalBloc {
     }
     
     
-    public void onVisitSelected(ComboBox combo, TableView tableView){
+    public void onVisitSelected(ComboBox combo, TableView tableView, TableColumn... col){
           try {
             combo.valueProperty().addListener(new ChangeListener<String>() {
                 @Override
@@ -54,7 +59,7 @@ public class IntervalBloc {
                     if (t1.equals("All") || t1.equals("Search by Visit")) {
                         combo.getSelectionModel().clearSelection();
                     }
-                    populateTable(tableView);
+                    populateTable(tableView,combo, col);
   
                 }
             });
@@ -62,29 +67,36 @@ public class IntervalBloc {
         }
     }
     
-    public void populateTable(TableView tableView){
-    
-    
-    
-    }
+    public void populateTable(TableView tableView, ComboBox comb, TableColumn... col){
+        col[0].setCellValueFactory(new PropertyValueFactory<>("vssubjectnumber"));
+        col[1].setCellValueFactory(new PropertyValueFactory<>("vsvisitdate"));
+        col[2].setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        col[3].setCellValueFactory(new PropertyValueFactory<>("endDate"));
+        col[4].setCellValueFactory(new PropertyValueFactory<>("daysLeft"));
+        data = FXCollections.observableArrayList();
+        List<Intervals> lists = DBConnect.getInstance().getAllIntervals(comb.getValue().toString());
+        System.out.println(lists);
+        data.addAll(lists);
+        tableView.setItems(data);
+      }
     
      public void populateCombox(ComboBox combos) {
-        combos.getItems().addAll("Visit 24,Visit 26");
+        combos.getItems().addAll("Visit 6");
+        combos.setValue("Select");
     }
     
      
     public void autoSearch(TextField textField, TableView tableView){
-     FilteredList<Visits> filteredData = new FilteredList<>(data, e -> true);
+     FilteredList<Intervals> filteredData = new FilteredList<>(data, e -> true);
         textField.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
-//            filteredData.setPredicate((Predicate<? super Visits>) daily -> {
-//                if (newValue == null || newValue.isEmpty()) {
-//                    return true;
-//                }
-//                
-//                return newValue;
-//            });
+            filteredData.setPredicate((Predicate<? super Intervals>) intervals -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                return Integer.toString(intervals.getSubjectnumber()).toLowerCase().contains(newValue.toLowerCase());
+            });
         });
-        SortedList<Visits> sortdata = new SortedList<>(filteredData);
+        SortedList<Intervals> sortdata = new SortedList<>(filteredData);
         sortdata.comparatorProperty().bind(tableView.comparatorProperty());
         tableView.setItems(sortdata);
     

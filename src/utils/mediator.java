@@ -9,11 +9,16 @@ import dao.DBConnect;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,6 +61,45 @@ import storeconnect.StoreConnect;
  * @author Duncan Adjei
  */
 public class mediator {
+    
+    private final Map<String, Map<Integer, Integer>> intervals = new HashMap<>();
+    
+    public Date[] calcVisitInterval(Date date, String visit) {
+        Date[] dates = null;
+        setIntervals();
+            Set set=intervals.entrySet(); 
+            Iterator itr=set.iterator();  
+            while(itr.hasNext()){  
+                Map.Entry entry=(Map.Entry)itr.next();  
+                if (entry.getValue().toString().equals(visit)){
+                   Map<String, Object> map = (Map<String, Object>)entry.getValue();
+                   Set sets=map.entrySet(); 
+                   Iterator itrs =sets.iterator(); 
+                   while(itrs.hasNext()){
+                     dates[0] = convert(toLocalDate(date).plusDays(Long.parseLong(entry.getKey().toString())));
+                     dates[1] = convert(toLocalDate(date).plusDays(Long.parseLong(entry.getValue().toString())));
+                   }
+                }
+         }   
+        return dates;
+    }
+
+    public int calcDaysLeft(Date endDate) {
+        LocalDate d1 = LocalDate.parse(toDateFormat(endDate));
+        LocalDate localDate = LocalDate.now();
+        java.time.Duration diff = java.time.Duration.between(d1.atStartOfDay(), localDate.atStartOfDay());
+        long diffDays = diff.toDays();
+        int i = (int)diffDays;
+        return i;
+    }
+    
+    public void setIntervals(){
+        Map<Integer, Integer> range = new HashMap<>();
+        range.put(39, 105);
+        range.put(24, 298);
+        intervals.put("Visit 24", range);
+    }
+
 
     int id;
     String indexnumber;
