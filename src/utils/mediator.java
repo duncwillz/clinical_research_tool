@@ -62,42 +62,73 @@ import storeconnect.StoreConnect;
  */
 public class mediator {
     
-    private final Map<String, Map<Integer, Integer>> intervals = new HashMap<>();
-    
+    private final Map<String, String> intervals = new HashMap<>();
+    Map<String, String> visits = new HashMap<>();
+
     public Date[] calcVisitInterval(Date date, String visit) {
-        Date[] dates = null;
+        Date[] dates = new Date [2];
         setIntervals();
             Set set=intervals.entrySet(); 
-            Iterator itr=set.iterator();  
+            Iterator itr=set.iterator(); 
             while(itr.hasNext()){  
                 Map.Entry entry=(Map.Entry)itr.next();  
-                if (entry.getValue().toString().equals(visit)){
-                   Map<String, Object> map = (Map<String, Object>)entry.getValue();
-                   Set sets=map.entrySet(); 
-                   Iterator itrs =sets.iterator(); 
-                   while(itrs.hasNext()){
-                     dates[0] = convert(toLocalDate(date).plusDays(Long.parseLong(entry.getKey().toString())));
-                     dates[1] = convert(toLocalDate(date).plusDays(Long.parseLong(entry.getValue().toString())));
-                   }
+                System.out.println("Compare to visit seleted and get the interval"+entry.getKey());
+                System.out.println("This is the visit given from dBFunction----->"+visit);
+                 if (entry.getKey().toString().equals(visit)){
+                     System.out.println("The key with interval----->"+entry.getValue().toString());
+                     String[] intervals_in = entry.getValue().toString().split("-");
+                     dates[0] = convert(toLocalDate(date).plusDays(Long.parseLong(intervals_in[0])));
+                     dates[1] = convert(toLocalDate(date).plusDays(Long.parseLong(intervals_in[1])));
+                   
                 }
          }   
         return dates;
     }
 
     public int calcDaysLeft(Date endDate) {
-        LocalDate d1 = LocalDate.parse(toDateFormat(endDate));
+        System.out.println(endDate);
+        LocalDate d1 = endDate.toLocalDate();
         LocalDate localDate = LocalDate.now();
-        java.time.Duration diff = java.time.Duration.between(d1.atStartOfDay(), localDate.atStartOfDay());
+        java.time.Duration diff = java.time.Duration.between(localDate.atStartOfDay(), d1.atStartOfDay());
         long diffDays = diff.toDays();
         int i = (int)diffDays;
         return i;
     }
     
     public void setIntervals(){
-        Map<Integer, Integer> range = new HashMap<>();
-        range.put(39, 105);
-        range.put(24, 298);
-        intervals.put("Visit 24", range);
+        intervals.put("Visit 24", "77-105");
+        intervals.put("Visit 27", "77-105");
+        intervals.put("Visit 30", "77-105");
+        intervals.put("Visit 33", "77-105");
+        intervals.put("Visit 35", "77-105");
+        intervals.put("Visit 36", "77-105");
+        intervals.put("Visit 37", "77-105");
+    }
+    
+    public void setDependents(){
+     visits.put("Visit 26", "Visit 24");
+     visits.put("Visit 29", "Visit 27");
+     visits.put("Visit 32", "Visit 30");
+     visits.put("Visit 35", "Visit 33");
+     visits.put("Visit 36", "Visit 35");
+     visits.put("Visit 37", "Visit 36");
+     visits.put("Visit 38", "Visit 37");
+    }
+    
+    public String dependentVisits(String visit){
+        String depend = "";
+        setDependents();
+            Set set=visits.entrySet(); 
+            Iterator itr=set.iterator();  
+            while(itr.hasNext()){  
+                Map.Entry entry=(Map.Entry)itr.next(); 
+                System.out.println("Find dependent and compare to---->"+entry.getKey().toString());
+                if (entry.getKey().toString().equals(visit)){
+                 depend = entry.getValue().toString();
+                }
+            }
+            System.out.println("Depended visit to return ---->"+depend);
+         return depend;
     }
 
 

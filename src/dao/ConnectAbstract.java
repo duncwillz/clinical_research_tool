@@ -979,16 +979,18 @@ public abstract class ConnectAbstract {
     public List<Intervals> getAllIntervals(String visit) {
         List<Intervals> data = new ArrayList();
         try {
-            String sql ="SELECT visits.vssubjectnumber , visits.vsvisitdate FROM `visits` WHERE visits.vsvisit = ? ORDER BY visits.vssubjectnumber ASC";
+            String sql ="SELECT visits.vssubjectnumber , visits.vsvisitdate FROM `visits` WHERE visits.vsvisit = ? AND visits.vsskipped = 0 ORDER BY visits.vssubjectnumber ASC";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setString(1, visit);
+            
             ResultSet rs = s.executeQuery();
             while (rs.next()) {
                 Intervals model = new Intervals(rs.getInt("vssubjectnumber"));
                 model.setPreviousVisit(rs.getDate("vsvisitdate"));
                 model.setStartDate(md.calcVisitInterval(rs.getDate("vsvisitdate"),visit)[0]);
                 model.setEndDate(md.calcVisitInterval(rs.getDate("vsvisitdate"),visit)[1]);
+                System.out.println("This is the set endDate--->"+model.getEndDate());
                 model.setDaysLeft(md.calcDaysLeft(model.getEndDate()));
                 data.add(model);
             }
