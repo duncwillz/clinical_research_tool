@@ -245,7 +245,7 @@ public class DailyVisitsBloc {
         tableView.setItems(_data);
     }
 
-    public boolean showAction(TableView selectionTable, TableView viewTable, TableColumn... col) {
+    public boolean showAction(TableView selectionTable, TableView viewTable, TableColumn... col){
         if (selectionTable.getSelectionModel().getSelectedIndex() < 0) {
             md.note("Error", "Please select a visit to view");
             return false;

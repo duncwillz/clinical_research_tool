@@ -8,16 +8,12 @@ package controllers;
 import bloc.DailyOutpatientBloc;
 import bloc.InpatientBloc;
 import bloc.ItemBloc;
-import dao.DBConnect;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -26,7 +22,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import model.Daily;
@@ -386,18 +381,18 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void iSupplyAction(ActionEvent event) {
+    void iSupplyAction(ActionEvent event){
         iBloc.onSupplySelected(iTableView, iSupplyView, iEmergencyView, viewEvent , iTableView.getSelectionModel().getSelectedItem(),ioiName, ioiAddedBy, ioiDate);
     }
 
     @FXML
-    void iEmergencyPurchase(ActionEvent event) {
+    void iEmergencyPurchase(ActionEvent event){
         iBloc.onEmergencyPuchaseClicked(iTableView, iTableView.getSelectionModel().getSelectedItem(), iSupplyView, iEmergencyView, viewEvent, epiName, epiAddedBy, epiDate);
     }
 
 
     @FXML
-    private void onCloseViewEvent(ActionEvent event) {
+    private void onCloseViewEvent(ActionEvent event){
         iBloc.onCloseViewEvent( iSupplyView, iEmergencyView, viewEvent);
     }
 
@@ -422,19 +417,19 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void inpViewButton(ActionEvent event) {
+    private void inpViewButton(ActionEvent event){
         if (inpBloc.showInpatientsAction(inpTableView, inpViewTable, inpViewTitleCol,inpViewDetailsCol)){
             dBloc.showView(inpViewGridPane, inpGridPane);
         }
     }
 
     @FXML
-    private void inpUpdateButton(ActionEvent event) {
+    private void inpUpdateButton(ActionEvent event){
         inpBloc.updateSelected(inpTableView, inpSaveOrUpdateButton, inpTableView.getSelectionModel().getSelectedItem(), inpAdmissionDate, inpDischargeDate, inpuserCombo,inpSubjectNumberCombo,inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel);
     }
 
     @FXML
-    private void inpDeleteButton(ActionEvent event) {
+    private void inpDeleteButton(ActionEvent event){
        if (inpBloc.deleteSelected(inpTableView)){
         dBloc.refreshLabel(inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel);
         inpBloc.refreshFields(inpAdmissionDate, inpDischargeDate, inpuserCombo,inpSubjectNumberCombo);
