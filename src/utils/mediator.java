@@ -9,6 +9,7 @@ import dao.DBConnect;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Time;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -39,16 +41,21 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import model.Item;
 import model.Subjects;
@@ -329,6 +336,10 @@ public class mediator {
         return format.format(date);
     }
 
+    public String toTimeFormatFromString(Time time){
+    SimpleDateFormat format = new SimpleDateFormat("H:m");
+        return format.format(time);
+    }
     public LocalDate toLocalDate(Date date) {
         return date.toLocalDate();
     }
@@ -366,6 +377,66 @@ public class mediator {
         LocalDate today = LocalDate.now();                          //Today's date
         Period p = Period.between(birthdate, today);
         return p.getYears() + " year(s) " + p.getMonths() + " month(s)";
+    }
+    
+     public class ComboBoxAutoComplete<T> {
+
+        private ComboBox<T> cmb;
+        String filter = "";
+        private ObservableList<T> originalItems;
+
+        public ComboBoxAutoComplete(ComboBox<T> cmb) {
+            this.cmb = cmb;
+            originalItems = FXCollections.observableArrayList(cmb.getItems());
+            cmb.setTooltip(new Tooltip());
+            cmb.setOnKeyPressed(this::handleOnKeyPressed);
+            cmb.setOnHidden(this::handleOnHiding);
+        }
+
+        public void handleOnKeyPressed(KeyEvent e) {
+            ObservableList<T> filteredList = FXCollections.observableArrayList();
+            KeyCode code = e.getCode();
+
+            if (code.isLetterKey()) {
+                filter += e.getText();
+            }
+            if (code.isDigitKey()) {
+                filter += e.getText();
+            }
+            if (code.isKeypadKey()) {
+                filter += e.getText();
+            }
+            if (code == KeyCode.BACK_SPACE && filter.length() > 0) {
+                filter = filter.substring(0, filter.length() - 1);
+                cmb.getItems().setAll(originalItems);
+            }
+            if (code == KeyCode.ESCAPE) {
+                filter = "";
+            }
+            if (filter.length() == 0) {
+                filteredList = originalItems;
+                cmb.getTooltip().hide();
+            } else {
+                Stream<T> itens = cmb.getItems().stream();
+                String txtUsr = filter.toString().toLowerCase();
+                itens.filter(el -> el.toString().toLowerCase().contains(txtUsr)).forEach(filteredList::add);
+                cmb.getTooltip().setText(txtUsr);
+                Window stage = cmb.getScene().getWindow();
+                double posX = stage.getX() + cmb.getBoundsInParent().getMinX();
+                double posY = stage.getY() + cmb.getBoundsInParent().getMinY();
+                cmb.getTooltip().show(stage, posX, posY);
+                cmb.show();
+            }
+            cmb.getItems().setAll(filteredList);
+        }
+
+        public void handleOnHiding(Event e) {
+            filter = "";
+            cmb.getTooltip().hide();
+            T s = cmb.getSelectionModel().getSelectedItem();
+            cmb.getItems().setAll(originalItems);
+            cmb.getSelectionModel().select(s);
+        }
     }
 
 }
