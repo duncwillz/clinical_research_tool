@@ -8,12 +8,18 @@ package bloc;
 import com.sun.javafx.util.Utils;
 import dao.DBConnect;
 import java.sql.Array;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +27,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -30,8 +37,12 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Window;
 import model.Daily;
 import model.Subjects;
 import model.User;
@@ -59,15 +70,35 @@ public class DailyOutpatientBloc {
         return DAILY_BLOC;
     }
 
-    public void populateCombox(ComboBox<String>... combos) {
+    public void populateCombox(ComboBox... combos) {
+        List<Integer> daysInMonth = new ArrayList<>();
+        for (int i = 0; i < 32; i++) {
+            daysInMonth.add(i);
+        }
         for (int i = 0; i < combos.length; i++) {
             combos[i].getItems().clear();
             if (i == 0) {
                 combos[i].getItems().addAll(namesOfUsers());
+                md.new ComboBoxAutoComplete<String>(combos[0]);
             } else if (i == 1) {
                 combos[i].getItems().addAll(subjectInfo());
+                md.new ComboBoxAutoComplete<String>(combos[1]);
+            } else if (i == 2) {
+                daysInMonth.remove(0);
+                combos[2].getItems().clear();
+                combos[2].getItems().addAll(daysInMonth);
+                md.new ComboBoxAutoComplete<Integer>(combos[2]);
+            } else if (i == 3) {
+                combos[3].getItems().clear();
+                combos[3].getItems().addAll("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+                md.new ComboBoxAutoComplete<Integer>(combos[3]);
+            } else if (i == 4) {
+                combos[4].getItems().clear();
+                combos[4].getItems().addAll(2017, 2018, 2019, 2020, 2021, 2022, 2023);
+                md.new ComboBoxAutoComplete<Integer>(combos[4]);
             }
         }
+
     }
 
     public List<String> namesOfUsers() {
@@ -75,7 +106,7 @@ public class DailyOutpatientBloc {
         DBConnect.getInstance().findAllUser().forEach((user) -> {
             names.add(user.getUfullname());
         });
-         return names;
+        return names;
     }
 
     public List<String> subjectInfo() {
@@ -121,12 +152,21 @@ public class DailyOutpatientBloc {
         label[2].setText("COM: " + md.getDbSubject().getScommunity());
     }
 
-    public Boolean isValidatedCombo(ComboBox<String>... combos) {
+    public Boolean isValidatedCombo(ComboBox... combos) {
         if (combos[0].getValue() == null) {
             md.note("Error", "Please select User");
             return false;
         } else if (combos[1].getValue() == null) {
             md.note("Error", "Please select Subject number");
+            return false;
+        } else if (combos[2].getValue() == null) {
+            md.note("Error", "Please select Day of  date");
+            return false;
+        } else if (combos[3].getValue() == null) {
+            md.note("Error", "Please select Month of  date");
+            return false;
+        } else if (combos[4].getValue() == null) {
+            md.note("Error", "Please select Year of  date");
             return false;
         }
         return true;
@@ -138,6 +178,12 @@ public class DailyOutpatientBloc {
             return false;
         } else if (textFields[1].getText().isEmpty()) {
             md.note("Error", "Please enter Weight");
+            return false;
+        } else if (textFields[2].getText().isEmpty()) {
+            md.note("Error", "Please enter Hour of Time");
+            return false;
+        } else if (textFields[3].getText().isEmpty()) {
+            md.note("Error", "Please enter Minute of Time");
             return false;
         }
         return true;
@@ -171,18 +217,20 @@ public class DailyOutpatientBloc {
         return null;
     }
 
-    public Boolean saveOrUpdate(Button saveButton, ActionEvent event, TextField weight, TextField temp, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, int opdId, ComboBox<String>... combos) {
-        if (isValidCaseType(dbNewCaseCheck, dbReviewCheck) && isValidTextField(temp, weight) && isValidatedCombo(combos)) {
+    public Boolean saveOrUpdate(Button saveButton, ActionEvent event, TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, int opdId, ComboBox... combos) {
+        if (isValidCaseType(dbNewCaseCheck, dbReviewCheck) && isValidTextField(temp, weight, h, m) && isValidatedCombo(combos)) {
             daily.setDcasetype(caseType(dbNewCaseCheck, dbReviewCheck));
             daily.setDfeverstate(feverState(temp));
             daily.setDtemp(Double.parseDouble(temp.getText()));
             daily.setDuser(md.getDbuser().getUid());
             daily.setDweight(Double.parseDouble(weight.getText()));
             daily.setDsubjectnumber(md.getDbSubject().getSnumber());
+            daily.setDtime(getTimeJoint(h, m));
+            daily.setDdate(getDDate(combos));
             if (saveButton.getText().equals("Save")) {
                 if (DBConnect.getInstance().create(daily)) {
                     md.note("Successful", "Records saved");
-                    refreshFields(weight, temp, dbNewCaseCheck, dbReviewCheck, combos);
+                    refreshFields(weight, temp, h, m, dbNewCaseCheck, dbReviewCheck, combos);
                 }
             } else if (saveButton.getText().equals("Update")) {
                 daily.setDid(opdId);
@@ -190,8 +238,10 @@ public class DailyOutpatientBloc {
                     if (DBConnect.getInstance().update(daily)) {
                         md.note("Successful", "Records updated");
                         saveButton.setText("Save");
-                        refreshFields(weight, temp, dbNewCaseCheck, dbReviewCheck, combos);
+                        refreshFields(weight, temp, h, m, dbNewCaseCheck, dbReviewCheck, combos);
                     }
+                } else {
+
                 }
             }
             return true;
@@ -199,13 +249,61 @@ public class DailyOutpatientBloc {
         return false;
     }
 
-    public void refreshFields(TextField weight, TextField temp, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, ComboBox<String>... combos) {
+    private Time getTimeJoint(TextField h, TextField m) {
+        DateFormat sdf = new SimpleDateFormat("H:m");
+        if (h.getText().isEmpty() || m.getText().isEmpty()) {
+            md.note("Error", "Please indicate time of collection");
+            return null;
+        } else {
+            String timeCollection = h.getText() + ":" + m.getText();
+            try {
+                LocalTime localTime = LocalTime.parse(timeCollection);
+                return java.sql.Time.valueOf(localTime);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public Date getDDate(ComboBox... combox) {
+        if (combox[2].getValue() == null || combox[3].getValue() == null || combox[4].getValue() == null) {
+            md.note("Error", "Please enter Date");
+            return null;
+        } else {
+            try {
+                String dateSelected;
+                if ((Integer) combox[2].getValue() > 9) {
+                    dateSelected = combox[2].getValue() + "-" + combox[3].getValue() + "-" + combox[4].getValue();
+                } else {
+                    dateSelected = "0" + combox[2].getValue() + "-" + combox[3].getValue() + "-" + combox[4].getValue();
+                }
+                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+                String dateInString = dateSelected;
+                java.util.Date date = formatter.parse(dateInString);
+                System.out.println(date);
+                java.sql.Date sd = new java.sql.Date(date.getTime());
+                return sd;
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public void refreshFields(TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, ComboBox... combos) {
         weight.setText("");
         temp.setText("");
+        h.setText("");
+        m.setText("");
         dbNewCaseCheck.setSelected(false);
         dbReviewCheck.setSelected(false);
         combos[0].setValue(null);
         combos[1].setValue(null);
+        combos[2].setValue(null);
+        combos[3].setValue(null);
+        combos[4].setValue(null);
+
     }
 
     public void refreshLabel(Label... label) {
@@ -220,25 +318,6 @@ public class DailyOutpatientBloc {
         col[2].setCellValueFactory(new PropertyValueFactory<>("dsubjectnumber"));
         col[3].setCellValueFactory(new PropertyValueFactory<>("dcasetype"));
         col[4].setCellValueFactory(new PropertyValueFactory<>("duser"));
-//        col[4].setCellFactory(column -> {
-//            TableCell<Daily, Integer> cell = new TableCell<Daily, Integer>() {
-//                @Override
-//                protected void updateItem(Integer item, boolean empty) {
-//                    try {
-//                        super.updateItem(item, empty);
-//                        User user = DBConnect.getInstance().findUserByUserId(item);
-//                        if (empty) {
-//                            setText(null);
-//                        } else {
-//                            setText(user.getUfullname());
-//                        }
-//                    } catch (Exception e) {
-//                    }
-//
-//                }
-//            };
-//            return cell;
-//        });
         col[5].setCellValueFactory(new PropertyValueFactory<>("ddatecreated"));
         col[5].setCellFactory(column -> {
             TableCell<Daily, java.sql.Timestamp> cell = new TableCell<Daily, java.sql.Timestamp>() {
@@ -246,6 +325,46 @@ public class DailyOutpatientBloc {
 
                 @Override
                 protected void updateItem(java.sql.Timestamp item, boolean empty) {
+                    try {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            setText(format.format(item));
+                        }
+                    } catch (Exception es) {
+                    }
+                }
+            };
+            return cell;
+        });
+        col[6].setCellValueFactory(new PropertyValueFactory<>("dtime"));
+        col[6].setCellFactory(column -> {
+            TableCell<Daily, Time> cell = new TableCell<Daily, Time>() {
+                private final SimpleDateFormat format = new SimpleDateFormat("H:m");
+
+                @Override
+                protected void updateItem(Time item, boolean empty) {
+                    try {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            setText(format.format(item));
+                        }
+                    } catch (Exception es) {
+                    }
+                }
+            };
+            return cell;
+        });
+        col[7].setCellValueFactory(new PropertyValueFactory<>("ddate"));
+        col[7].setCellFactory(column -> {
+            TableCell<Daily, Date> cell = new TableCell<Daily, Date>() {
+                private final SimpleDateFormat format = new SimpleDateFormat("E, dd-MMM-yyyy");
+
+                @Override
+                protected void updateItem(Date item, boolean empty) {
                     try {
                         super.updateItem(item, empty);
                         if (empty) {
@@ -299,7 +418,9 @@ public class DailyOutpatientBloc {
                 new View("Case", daily.getDcasetype()),
                 new View("Fever state", daily.getDfeverstate()),
                 new View("User", DBConnect.getInstance().findUserByUserId(daily.getDuser()).getUfullname()),
-                new View("Date", md.toDateFormatFromString(daily.getDdatecreated()))
+                new View("Time", md.toTimeFormatFromString(daily.getDtime())),
+                new View("OPD Date", md.toDateFormat(daily.getDdate())),
+                new View("Date Created", md.toDateFormatFromString(daily.getDdatecreated()))
         );
         col[0].setCellValueFactory(new PropertyValueFactory<>("title"));
         col[1].setCellValueFactory(new PropertyValueFactory<>("details"));
@@ -331,13 +452,13 @@ public class DailyOutpatientBloc {
         return false;
     }
 
-    public boolean onUpdateClick(TableView tableView, Daily daily, ComboBox c1, ComboBox c2, TextField t1, TextField t2, Label... l) {
+    public boolean onUpdateClick(TableView tableView, Daily daily, ComboBox c1, ComboBox c2, ComboBox d, ComboBox mm, ComboBox y, TextField t1, TextField t2, TextField h, TextField m, Label... l) {
         if (tableView.getSelectionModel().getSelectedIndex() < 0) {
             md.note("Error", "Please select the OPD record to update");
             return false;
         } else {
             if (updateLabelFields(daily, c1, c2, l)) {
-                updateTextFields(daily, t1, t2);
+                updateTextFields(daily, d, mm, y, t1, t2, h, m);
             }
         }
         return false;
@@ -354,11 +475,25 @@ public class DailyOutpatientBloc {
         return true;
     }
 
-    public void updateTextFields(Daily daily, TextField... text) {
+    public void updateTextFields(Daily daily, ComboBox d, ComboBox m, ComboBox y, TextField... text) {
         text[0].setText(Double.toString(daily.getDtemp()));
         text[1].setText(Double.toString(daily.getDweight()));
+        SimpleDateFormat sdf = new SimpleDateFormat("H");
+        text[2].setText(sdf.format(daily.getDtime()));
+        sdf = new SimpleDateFormat("m");
+        text[3].setText(sdf.format(daily.getDtime()));
+        sdf = new SimpleDateFormat("d");
+        d.setValue(Integer.parseInt(sdf.format(daily.getDdate())));
+        sdf = new SimpleDateFormat("MMM");
+        m.setValue(sdf.format(daily.getDdate()));
+        sdf = new SimpleDateFormat("yyyy");
+        y.setValue(Integer.parseInt(sdf.format(daily.getDdate())));
     }
 
+//    public int dayFromPreviousVisit(Integer subjectNumber){
+//    Daily daily = DBConnect.getInstance().findDailyRecordBySubject(subjectNumber);
+//    
+//    }
     public void checkStatus(String state, CheckBox... check) {
         switch (state) {
             case "New case only":
