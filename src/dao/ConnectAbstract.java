@@ -187,10 +187,10 @@ public abstract class ConnectAbstract {
         return model;
     }
 
-    //    STORE CONNECT USER DIALY
+    //    STORE CONNECT USER DIALY OR OURPATIENTS
     public boolean create(Daily model) {
         try {
-            String sql = "INSERT INTO daily (dweight, dtemp, dsubjectnumber, dcasetype, dfeverstate, duser, ddatecreated) VALUES (?,?,?,?,?,?,now())";
+            String sql = "INSERT INTO daily (dweight, dtemp, dsubjectnumber, dcasetype, dfeverstate,dtime,ddate, duser, ddatecreated) VALUES (?,?,?,?,?,?, ?,?, now())";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setDouble(1, model.getDweight());
@@ -198,7 +198,9 @@ public abstract class ConnectAbstract {
             s.setInt(3, model.getDsubjectnumber());
             s.setString(4, model.getDcasetype());
             s.setString(5, model.getDfeverstate());
-            s.setInt(6, model.getDuser());
+            s.setTime(6, model.getDtime());
+            s.setDate(7, model.getDdate());
+            s.setInt(8, model.getDuser());
             return s.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,7 +210,7 @@ public abstract class ConnectAbstract {
 
     public boolean update(Daily model) {
         try {
-            String sql = "UPDATE daily SET dweight = ?, dtemp = ?, dsubjectnumber = ?, dcasetype = ?, dfeverstate = ? WHERE did = ?";
+            String sql = "UPDATE daily SET dweight = ?, dtemp = ?, dsubjectnumber = ?, dcasetype = ?, dfeverstate = ?, dtime =?, ddate =? WHERE did = ?";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setDouble(1, model.getDweight());
@@ -216,7 +218,9 @@ public abstract class ConnectAbstract {
             s.setInt(3, model.getDsubjectnumber());
             s.setString(4, model.getDcasetype());
             s.setString(5, model.getDfeverstate());
-            s.setInt(6, model.getDid());
+            s.setTime(6, model.getDtime());
+            s.setDate(7, model.getDdate());
+            s.setInt(8, model.getDid());
             return s.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -252,6 +256,8 @@ public abstract class ConnectAbstract {
                 model.setDsubjectnumber(rs.getInt("dsubjectnumber"));
                 model.setDcasetype(rs.getString("dcasetype"));
                 model.setDfeverstate(rs.getString("dfeverstate"));
+                model.setDtime(rs.getTime("dtime"));
+                model.setDdate(rs.getDate("ddate"));
                 model.setDuser(rs.getInt("duser"));
                 model.setDdatecreated(md.dateToTimeStamp(rs.getDate("ddatecreated")));
                 data.add(model);
@@ -261,6 +267,33 @@ public abstract class ConnectAbstract {
             return null;
         }
         return data;
+    }
+    
+    public Daily findDailyRecordBySubject(int sn){
+       Daily model = new Daily();
+        try {
+            String sql = "SELECT * FROM daily WHERE dsubjectnumber = ?";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setInt(1, sn);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                model = new Daily(rs.getInt("did"));
+                model.setDsubjectnumber(rs.getInt("dsubjectnumber"));
+                model.setDtemp(rs.getDouble("dtemp"));
+                model.setDweight(rs.getDouble("dweight"));
+                model.setDtime(rs.getTime("dtime"));
+                model.setDcasetype(rs.getString("dcasetype"));
+                model.setDfeverstate(rs.getString("dfeverstate"));
+                model.setDuser(rs.getInt("duser"));
+                model.setDdate(rs.getDate("ddate"));
+                model.setDdatecreated(md.dateToTimeStamp(rs.getDate("ddatecreated")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return model;
     }
 
     //    SUBJECT DATA
