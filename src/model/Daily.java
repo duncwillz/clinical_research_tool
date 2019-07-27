@@ -5,6 +5,10 @@
  */
 package model;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 
 /**
  *
@@ -21,16 +25,14 @@ public class Daily  {
     private String dcasetype;
     private String dfeverstate;
     private java.sql.Timestamp ddatecreated;
+    private Time dtime;
+    private Date ddate;
     private int duser;
 
     public Daily() {
     }
 
-    public Daily(Integer did) {
-        this.did = did;
-    }
-
-    public Daily(Integer did, double dweight, double dtemp, int dsubjectnumber, String dcasetype, String dfeverstate, java.sql.Timestamp ddatecreated) {
+    public Daily(Integer did, double dweight, double dtemp, int dsubjectnumber, String dcasetype, String dfeverstate, Timestamp ddatecreated, Time dtime, Date ddate, int duser) {
         this.did = did;
         this.dweight = dweight;
         this.dtemp = dtemp;
@@ -38,8 +40,48 @@ public class Daily  {
         this.dcasetype = dcasetype;
         this.dfeverstate = dfeverstate;
         this.ddatecreated = ddatecreated;
+        this.dtime = dtime;
+        this.ddate = ddate;
+        this.duser = duser;
     }
 
+    public Daily(double dweight, double dtemp, int dsubjectnumber, String dcasetype, String dfeverstate, Timestamp ddatecreated, Time dtime, Date ddate, int duser) {
+        this.dweight = dweight;
+        this.dtemp = dtemp;
+        this.dsubjectnumber = dsubjectnumber;
+        this.dcasetype = dcasetype;
+        this.dfeverstate = dfeverstate;
+        this.ddatecreated = ddatecreated;
+        this.dtime = dtime;
+        this.ddate = ddate;
+        this.duser = duser;
+    }
+
+    public Date getDdate() {
+        return ddate;
+    }
+
+    public void setDdate(Date ddate) {
+        this.ddate = ddate;
+    }
+
+    
+
+    public Time getDtime() {
+        return dtime;
+    }
+
+    public void setDtime(Time dtime) {
+        this.dtime = dtime;
+    }
+
+    
+    
+    public Daily(Integer did) {
+        this.did = did;
+    }
+
+  
     public Integer getDid() {
         return did;
     }
