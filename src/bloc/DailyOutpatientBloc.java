@@ -217,7 +217,7 @@ public class DailyOutpatientBloc {
         return null;
     }
 
-    public Boolean saveOrUpdate(Button saveButton, ActionEvent event, TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, int opdId, ComboBox... combos) {
+    public Boolean saveOrUpdate(Button saveButton, ActionEvent event, TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck,CheckBox dbDateCheck, int opdId, ComboBox... combos) {
         if (isValidCaseType(dbNewCaseCheck, dbReviewCheck) && isValidTextField(temp, weight, h, m) && isValidatedCombo(combos)) {
             daily.setDcasetype(caseType(dbNewCaseCheck, dbReviewCheck));
             daily.setDfeverstate(feverState(temp));
@@ -226,7 +226,7 @@ public class DailyOutpatientBloc {
             daily.setDweight(Double.parseDouble(weight.getText()));
             daily.setDsubjectnumber(md.getDbSubject().getSnumber());
             daily.setDtime(getTimeJoint(h, m));
-            daily.setDdate(getDDate(combos));
+            daily.setDdate(getDDate(dbDateCheck,combos));
             if (saveButton.getText().equals("Save")) {
                 if (DBConnect.getInstance().create(daily)) {
                     md.note("Successful", "Records saved");
@@ -266,8 +266,15 @@ public class DailyOutpatientBloc {
         return null;
     }
 
-    public Date getDDate(ComboBox... combox) {
-        if (combox[2].getValue() == null || combox[3].getValue() == null || combox[4].getValue() == null) {
+    public Date getDDate(CheckBox check, ComboBox... combox) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        java.util.Date date = new java.util.Date();
+        java.sql.Date sd = new java.sql.Date(date.getTime());
+
+        if (check.isSelected()) {
+            return sd;
+
+        } else if (combox[2].getValue() == null || combox[3].getValue() == null || combox[4].getValue() == null) {
             md.note("Error", "Please enter Date");
             return null;
         } else {
@@ -278,17 +285,15 @@ public class DailyOutpatientBloc {
                 } else {
                     dateSelected = "0" + combox[2].getValue() + "-" + combox[3].getValue() + "-" + combox[4].getValue();
                 }
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
                 String dateInString = dateSelected;
-                java.util.Date date = formatter.parse(dateInString);
-                System.out.println(date);
-                java.sql.Date sd = new java.sql.Date(date.getTime());
+                date = formatter.parse(dateInString);
+                sd = new java.sql.Date(date.getTime());
                 return sd;
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        return sd;
     }
 
     public void refreshFields(TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, ComboBox... combos) {
