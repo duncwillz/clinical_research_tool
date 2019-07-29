@@ -202,10 +202,6 @@ public class MainController implements Initializable {
     @FXML
     private Button inpSaveOrUpdateButton;
     @FXML
-    private DatePicker inpAdmissionDate;
-    @FXML
-    private DatePicker inpDischargeDate;
-    @FXML
     private TextField inpSearchTextfield;
     @FXML
     private TableView<Inpatients> inpTableView;
@@ -271,6 +267,24 @@ public class MainController implements Initializable {
     private ComboBox<?> dbYearCombo;
     @FXML
     private TableColumn<?, ?> dbOPDDateCol;
+    @FXML
+    private ComboBox<?> inpAdmissionDay;
+    @FXML
+    private ComboBox<?> inpAdmissionMonth;
+    @FXML
+    private ComboBox<?> inpAdmissionYear;
+    @FXML
+    private ComboBox<?> inpDischargeDay;
+    @FXML
+    private ComboBox<?> inpDischargeMonth;
+    @FXML
+    private ComboBox<?> inpDischargeYear;
+    @FXML
+    private CheckBox dbDateCheck;
+    @FXML
+    private CheckBox inpAdmDateCheck;
+    @FXML
+    private CheckBox inpDisDateCheck;
 
     @FXML
     void dbClearDetails(ActionEvent event) {
@@ -293,7 +307,7 @@ public class MainController implements Initializable {
         } else {
             pid = dbTableView.getSelectionModel().getSelectedItem().getDid();
         }
-        if (dBloc.saveOrUpdate(dbSaveOrUpdateButton, event, dbWeight, dbTemp, dbTimeH, dbTimeM, dbNewCaseCheck, dbReviewCheck, pid, dbUserCombo, dbSubjectNumberCombo,dbDayCombo,dbMonthCombo,dbYearCombo)) {
+        if (dBloc.saveOrUpdate(dbSaveOrUpdateButton, event, dbWeight, dbTemp, dbTimeH, dbTimeM, dbNewCaseCheck, dbReviewCheck, dbDateCheck, pid, dbUserCombo, dbSubjectNumberCombo,dbDayCombo,dbMonthCombo,dbYearCombo)) {
             refreshDailyBloc();
             dBlocInitializes();
         }
@@ -359,7 +373,7 @@ public class MainController implements Initializable {
     
     public void initializeInpatient(){
         dBloc.onSelectSubject(inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel, inpuserCombo,inpSubjectNumberCombo);
-        dBloc.populateCombox(inpuserCombo,inpSubjectNumberCombo);
+        inpBloc.populateCombox(inpuserCombo,inpSubjectNumberCombo,inpAdmissionDay,inpAdmissionMonth,inpAdmissionYear,inpDischargeDay,inpDischargeMonth,inpDischargeYear );
         dBloc.nowDate(inpDateNow);
         combo.new ComboBoxAutoComplete<String>(inpuserCombo);
         combo.new ComboBoxAutoComplete<String>(inpSubjectNumberCombo);
@@ -418,7 +432,7 @@ public class MainController implements Initializable {
         } else {
             inpid = inpTableView.getSelectionModel().getSelectedItem().getInpid();
         }
-       if(inpBloc.saveOrUpdateInpatient(inpAdmissionDate, inpDischargeDate, inpSaveOrUpdateButton, inpid, inpuserCombo, inpSubjectNumberCombo,inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel)){
+       if(inpBloc.saveOrUpdateInpatient(inpSaveOrUpdateButton, inpid, inpuserCombo, inpSubjectNumberCombo,inpAdmissionDay,inpAdmissionMonth,inpAdmissionYear,inpDischargeDay,inpDischargeMonth,inpDischargeYear,inpAdmDateCheck,inpDisDateCheck, inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel)){
            initializeInpatient();                   
         }
     }
@@ -426,7 +440,7 @@ public class MainController implements Initializable {
     @FXML
     private void inpClearDetails(ActionEvent event) {
         dBloc.refreshLabel(inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel);
-        inpBloc.refreshFields(inpAdmissionDate, inpDischargeDate, inpuserCombo,inpSubjectNumberCombo);
+        inpBloc.refreshFields(inpSaveOrUpdateButton,inpAdmDateCheck,inpDisDateCheck,inpuserCombo,inpSubjectNumberCombo,inpAdmissionDay,inpAdmissionMonth,inpAdmissionYear,inpDischargeDay,inpDischargeMonth,inpDischargeYear);
         
     }
 
@@ -439,14 +453,14 @@ public class MainController implements Initializable {
 
     @FXML
     private void inpUpdateButton(ActionEvent event){
-        inpBloc.updateSelected(inpTableView, inpSaveOrUpdateButton, inpTableView.getSelectionModel().getSelectedItem(), inpAdmissionDate, inpDischargeDate, inpuserCombo,inpSubjectNumberCombo,inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel);
+        inpBloc.updateSelected(inpTableView, inpSaveOrUpdateButton, inpTableView.getSelectionModel().getSelectedItem(),inpAdmDateCheck,inpDisDateCheck, inpuserCombo,inpSubjectNumberCombo,inpAdmissionDay,inpAdmissionMonth,inpAdmissionYear,inpDischargeDay,inpDischargeMonth,inpDischargeYear, inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel);
     }
 
     @FXML
     private void inpDeleteButton(ActionEvent event){
        if (inpBloc.deleteSelected(inpTableView)){
         dBloc.refreshLabel(inpSubjectNameLabel, inpSubjectDOBLabel, inpSubjectComLabel);
-        inpBloc.refreshFields(inpAdmissionDate, inpDischargeDate, inpuserCombo,inpSubjectNumberCombo);
+        inpBloc.refreshFields(inpSaveOrUpdateButton, inpAdmDateCheck,inpDisDateCheck,inpuserCombo,inpSubjectNumberCombo,inpAdmissionDay,inpAdmissionMonth,inpAdmissionYear,inpDischargeDay,inpDischargeMonth,inpDischargeYear);
          initializeInpatient();                   
        }
     }
