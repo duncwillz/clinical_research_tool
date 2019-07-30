@@ -86,7 +86,6 @@ public class mediator {
                      String[] intervals_in = entry.getValue().toString().split("-");
                      dates[0] = convert(toLocalDate(date).plusDays(Long.parseLong(intervals_in[0])));
                      dates[1] = convert(toLocalDate(date).plusDays(Long.parseLong(intervals_in[1])));
-                   
                 }
          }   
         return dates;
