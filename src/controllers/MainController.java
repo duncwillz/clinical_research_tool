@@ -8,6 +8,7 @@ package controllers;
 import bloc.DailyOutpatientBloc;
 import bloc.InpatientBloc;
 import bloc.ItemBloc;
+import bloc.ReceiveBloc;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -47,6 +48,8 @@ public class MainController implements Initializable {
     ItemBloc iBloc = ItemBloc.iBloc();
     //INPATIENT BLOC
     InpatientBloc inpBloc = InpatientBloc.inpBloc();
+    //RECEIVE BLOC
+    ReceiveBloc recBloc = ReceiveBloc.riBloc();
     
     @FXML
     private GridPane dailyGridPane;
@@ -234,8 +237,6 @@ public class MainController implements Initializable {
     @FXML
     private Button riReceiveInOrUpdateButton;
     @FXML
-    private TextField searchTextField;
-    @FXML
     private TableColumn<?, ?> riItemCol;
     @FXML
     private TableColumn<?, ?> riSupplierCol;
@@ -285,6 +286,10 @@ public class MainController implements Initializable {
     private CheckBox inpAdmDateCheck;
     @FXML
     private CheckBox inpDisDateCheck;
+    @FXML
+    private TableView<?> ricTableView;
+    @FXML
+    private TextField recSearchTextField;
 
     @FXML
     void dbClearDetails(ActionEvent event) {
@@ -345,6 +350,8 @@ public class MainController implements Initializable {
         userLoggedIn();
         initializeItemBloc();
         initializeInpatient();
+        initializeReceives();
+        
     }
 
     public void dBlocInitializes() {
@@ -380,6 +387,11 @@ public class MainController implements Initializable {
         inpBloc.populateTable(inpTableView, inpPidCol,inpAdmissionCol, inpDischargeCol,inpUserCol,inpDateCol);
         inpBloc.populatePendingDischarge(inpPendingTable, inpPendingPidCol,inpPendingAdmissionDateCol);
         inpBloc.autoSearch(inpSearchTextfield, inpTableView);
+    }
+    
+    public void initializeReceives(){
+        recBloc.populateTable(ricTableView, riItemCol,riSupplierCol,riNoReceiveCol,riDateReceiveCol,riExpiryCol,riDescriptionCol,riInvoiceCol,riUserCol);
+        recBloc.autoSearch(recSearchTextField, ricTableView);
     }
     
 
