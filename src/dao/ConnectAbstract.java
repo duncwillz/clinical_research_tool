@@ -482,7 +482,7 @@ public abstract class ConnectAbstract {
     //RECEIVE 
     public boolean create(Receive model) {
         try {
-            String sql = "INSERT INTO receive (risupplier, riinvoice, rinumb,riuser,riexpiry,ridate,riitem,ridescription) VALUES (?,?,?,?,?,now(),?,?)";
+            String sql = "INSERT INTO recieve (risupplier, riinvoice, rinumb,riuser,riexpiry,ridate,riitem,ridescription) VALUES (?,?,?,?,?,now(),?,?)";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setString(1, model.getRisupplier());
@@ -501,7 +501,7 @@ public abstract class ConnectAbstract {
 
     public boolean update(Receive model) {
         try {
-            String sql = "UPDATE receive SET risupplier = ?, riinvoice = ?, rinumb = ?,riuser = ?,riexpiry = ?,riitem = ?,ridescription = ? WHERE riid = ?";
+            String sql = "UPDATE recieve SET risupplier = ?, riinvoice = ?, rinumb = ?,riuser = ?,riexpiry = ?,riitem = ?,ridescription = ? WHERE riid = ?";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setString(1, model.getRisupplier());
@@ -521,7 +521,7 @@ public abstract class ConnectAbstract {
 
     public boolean delete(Receive model) {
         try {
-            String sql = "DELETE FROM receive WHERE riid = ?";
+            String sql = "DELETE FROM recieve WHERE riid = ?";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setInt(1, model.getRiid());
@@ -535,7 +535,7 @@ public abstract class ConnectAbstract {
     public Receive findReceiveById(int id) {
         Receive model = new Receive();
         try {
-            String sql = "SELECT * FROM receive where iid = ?";
+            String sql = "SELECT * FROM recieve where iid = ?";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setInt(1, id);
@@ -562,13 +562,13 @@ public abstract class ConnectAbstract {
         List<Receive> data = new ArrayList();
         Receive model = new Receive();
         try {
-            String sql = "SELECT * FROM receive";
+            String sql = "SELECT * FROM recieve";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             ResultSet rs = s.executeQuery();
             while (rs.next()) {
 
-                model.setRiid(rs.getInt("iid"));
+                model.setRiid(rs.getInt("riid"));
                 model.setRisupplier(rs.getString("risupplier"));
                 model.setRiexpiry(rs.getDate("riexpiry"));
                 model.setRiinvoice(rs.getInt("riinvoice"));
