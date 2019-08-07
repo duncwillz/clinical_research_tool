@@ -5,10 +5,7 @@
  */
 
 package bloc;
-
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import model.Suppliers;
+import model.Supplier;
 import utils.mediator;
 
 /**
@@ -16,7 +13,7 @@ import utils.mediator;
  * @author kwakuadjei <duncanadjei@gmail.com>
  */
 public class SupplyBloc {
-    Suppliers suppliers = new Suppliers();
+    Supplier suppliers = new Supplier();
     private static final SupplyBloc SUPPLY_BLOC = new SupplyBloc();
     mediator md = mediator.md();
     private SupplyBloc() {
