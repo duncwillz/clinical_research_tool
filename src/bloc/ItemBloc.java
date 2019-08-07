@@ -178,16 +178,21 @@ public class ItemBloc {
         tableView.setItems(sortdata);
     }
 
-    public void onSupplySelected(TableView tab, GridPane sg, GridPane eg, GridPane vg, Item item, Label... l) {
+    public void onSupplySelected(TableView tab, GridPane sg, GridPane eg, GridPane vg, Item item, TextField stock, Label... l) {
         if (validateSelection(tab)) {
             showView(S, sg, eg, vg);
             md.setItem(item);
             l[0].setText("Name: "+item.getIname());
             l[1].setText("Added by: "+DBConnect.getInstance().findUserByUserId(item.getIuser()).getUfullname());
             l[2].setText("Date: "+format.format(item.getIdate()));
+            stock.setText(calcStock(item.getIid()));
         }
     }
-
+    
+    public String calcStock(int itemid){
+    return Double.toString(DBConnect.getInstance().getSumOf(itemid, "rinumb","recieve","riitem")-DBConnect.getInstance().getSumOf(itemid, "suitemnumber","supplier","suitem"));
+    }
+    
     public void onEmergencyPuchaseClicked(TableView tab, Item item, GridPane sg, GridPane eg, GridPane vg, Label... l) {
         if (validateSelection(tab)) {
             showView(E, sg, eg, vg);
