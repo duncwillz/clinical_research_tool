@@ -177,18 +177,18 @@ public class ReceiveBloc {
             ri.setRiexpiry(md.convert(date.getValue()));
             ri.setRidescription(text[3].getText());
             ri.setRiuser(md.getDbuser().getUid());
-            if (saveButton.getText().equals("Save")) {
+            if (saveButton.getText().equals("Receive In")) {
                 if (DBConnect.getInstance().create(ri)) {
                     md.note("Successful", "Records saved");
-                    refreshFields(date,text);
+                    refreshFields(date, text);
                 }
-            } else if (saveButton.getText().equals("Update")) {
+            } else if (saveButton.getText().equals("Update Receive")) {
                 ri.setRiid(id);
                 if (md.AlertSelected(Alert.AlertType.INFORMATION, "Update", "Are sure you want to update OPD Records", " ", "Yes")) {
                     if (DBConnect.getInstance().update(ri)) {
                         md.note("Successful", "Records updated");
                         saveButton.setText("Save");
-                        refreshFields(date,text);
+                        refreshFields(date, text);
                     }
                 } else {
                     
@@ -198,14 +198,43 @@ public class ReceiveBloc {
         }
         return false;
     }
-
+    
+    public void onUpdate(TableView t, Receive re, DatePicker dp, Button b, TextField... text) {
+        if (t.getSelectionModel().getFocusedIndex() < 0) {
+            md.note("Error", "Please select a product to update");
+        } else {
+            text[0].setText(re.getRisupplier());
+            text[1].setText(Integer.toString(re.getRiinvoice()));
+            text[2].setText(Integer.toString(re.getRinumb()));
+            dp.setValue(md.toLocalDate(re.getRiexpiry()));
+            text[3].setText(re.getRidescription());
+            b.setText("Update Receive");
+        }
+    }
+    
+    public boolean onDelete(TableView t, Receive re, DatePicker dp, Button b, TextField... text) {
+        if (md.AlertSelected(Alert.AlertType.WARNING, "Delete", "Are you sure you want to delete this item", "This action cannot be undone, do you want to continue?", "Yes")) {
+            if (t.getSelectionModel().getFocusedIndex() < 0) {
+                md.note("Error", "Please select a product to update");
+                return false;
+            } else {
+                if (DBConnect.getInstance().delete((Receive) t.getSelectionModel().getSelectedItem())) {
+                    refreshFields(dp, text);
+                    md.note("Successful", "You have successful delete the data");
+                }
+            }
+        }
+        
+        return false;
+    }
+    
     public void refreshFields(DatePicker date, TextField... t) {
         date.setValue(null);
         for (TextField _t : t) {
             _t.setText("");
         }
     }
-
+    
     public Boolean isValidated(DatePicker date, TextField... text) {
         for (TextField field : text) {
             if (field.getText().isEmpty()) {
