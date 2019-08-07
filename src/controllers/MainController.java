@@ -422,7 +422,7 @@ public class MainController implements Initializable {
 
     @FXML
     void iSupplyAction(ActionEvent event){
-        iBloc.onSupplySelected(iTableView, iSupplyView, iEmergencyView, viewEvent , iTableView.getSelectionModel().getSelectedItem(),ioiName, ioiAddedBy, ioiDate);
+        iBloc.onSupplySelected(iTableView, iSupplyView, iEmergencyView, viewEvent , iTableView.getSelectionModel().getSelectedItem(), riStockLeft,ioiName, ioiAddedBy, ioiDate);
     }
 
     @FXML
@@ -484,10 +484,12 @@ public class MainController implements Initializable {
 
     @FXML
     private void riOnRecieveOrUpdateReceive(ActionEvent event) {
+        
     }
 
     @FXML
     private void riOnClearAll(ActionEvent event) {
+        
     }
 
     @FXML
