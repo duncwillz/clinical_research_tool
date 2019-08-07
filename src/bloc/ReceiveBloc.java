@@ -13,9 +13,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,20 +34,20 @@ import utils.mediator;
  * @author kwakuadjei <duncanadjei@gmail.com>
  */
 public class ReceiveBloc {
-
+    
     private static final ReceiveBloc RECEIVE_BLOC = new ReceiveBloc();
     mediator md = mediator.md();
     Receive ri = new Receive();
     ObservableList<Receive> data;
-
+    
     private ReceiveBloc() {
         this.data = FXCollections.observableArrayList();
     }
-
+    
     public static ReceiveBloc riBloc() {
         return RECEIVE_BLOC;
     }
-
+    
     public Boolean isvalidatedFields(DatePicker date, TextField... textField) {
         if (date.getValue() == null || textField[0].getText().isEmpty() || textField[1].getText().isEmpty() || textField[2].getText().isEmpty() || textField[3].getText().isEmpty()) {
             md.note("Error", "All fields are required, description is optional");
@@ -51,7 +55,7 @@ public class ReceiveBloc {
         }
         return true;
     }
-
+    
     public void onSupplyAction(DatePicker date, int rrid, Button but, TextField... textField) {
         if (isvalidatedFields(date, textField)) {
             ri.setRisupplier(textField[0].getText());
@@ -66,14 +70,14 @@ public class ReceiveBloc {
                 ri.setRidescription(null);
             }
             if (but.getText().equals("Receive In")) {
-
+                
                 md.note("Success", "Drug received");
             } else if (but.getText().equals("Update receive")) {
                 md.note("Updated", "Drug receive updated");
             }
         }
     }
-
+    
     public void onClearAction(DatePicker date, Button bt, TextField... fields) {
         date.setValue(null);
         bt.setText("Receive in");
@@ -81,12 +85,12 @@ public class ReceiveBloc {
             field.setText("");
         }
     }
-
+    
     public void populateTable(TableView tableView, TableColumn... col) {
         col[0].setCellValueFactory(new PropertyValueFactory<>("riitem"));
         col[0].setCellFactory(column -> {
             TableCell<Visits, Integer> cell = new TableCell<Visits, Integer>() {
-
+                
                 @Override
                 protected void updateItem(Integer item, boolean empty) {
                     try {
@@ -105,7 +109,7 @@ public class ReceiveBloc {
         col[3].setCellFactory(column -> {
             TableCell<Visits, Date> cell = new TableCell<Visits, Date>() {
                 private final SimpleDateFormat format = new SimpleDateFormat("E, dd-MMM-yyyy");
-
+                
                 @Override
                 protected void updateItem(Date item, boolean empty) {
                     try {
@@ -125,7 +129,7 @@ public class ReceiveBloc {
         col[4].setCellFactory(column -> {
             TableCell<Visits, Date> cell = new TableCell<Visits, Date>() {
                 private final SimpleDateFormat format = new SimpleDateFormat("E, dd-MMM-yyyy");
-
+                
                 @Override
                 protected void updateItem(Date item, boolean empty) {
                     try {
@@ -149,7 +153,6 @@ public class ReceiveBloc {
         tableView.setItems(data);
     }
     
-    
     public void autoSearch(TextField searchText, TableView tableView) {
         FilteredList<Receive> filteredData = new FilteredList<>(data, e -> true);
         searchText.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
@@ -165,5 +168,56 @@ public class ReceiveBloc {
         tableView.setItems(sortdata);
     }
     
+    public Boolean onReceiveOrUpdate(Button saveButton, ActionEvent event, int id, DatePicker date, Label lab, TextField... text) {
+        if (isValidated(date, text)) {
+            ri.setRiitem(DBConnect.getInstance().findItemByName(lab.getText()).getIid());
+            ri.setRisupplier(text[0].getText());
+            ri.setRiinvoice(Integer.parseInt(text[1].getText()));
+            ri.setRinumb(Integer.parseInt(text[2].getText()));
+            ri.setRiexpiry(md.convert(date.getValue()));
+            ri.setRidescription(text[3].getText());
+            ri.setRiuser(md.getDbuser().getUid());
+            if (saveButton.getText().equals("Save")) {
+                if (DBConnect.getInstance().create(ri)) {
+                    md.note("Successful", "Records saved");
+                    refreshFields(date,text);
+                }
+            } else if (saveButton.getText().equals("Update")) {
+                ri.setRiid(id);
+                if (md.AlertSelected(Alert.AlertType.INFORMATION, "Update", "Are sure you want to update OPD Records", " ", "Yes")) {
+                    if (DBConnect.getInstance().update(ri)) {
+                        md.note("Successful", "Records updated");
+                        saveButton.setText("Save");
+                        refreshFields(date,text);
+                    }
+                } else {
+                    
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
+    public void refreshFields(DatePicker date, TextField... t) {
+        date.setValue(null);
+        for (TextField _t : t) {
+            _t.setText("");
+        }
+    }
+
+    public Boolean isValidated(DatePicker date, TextField... text) {
+        for (TextField field : text) {
+            if (field.getText().isEmpty()) {
+                md.note("error", "All feilds are required");
+                return false;
+            }
+        }
+        if (date.getValue() == null) {
+            md.note("error", "All feilds are required");
+            return false;
+        }
+        return true;
+    }
+    
 }
