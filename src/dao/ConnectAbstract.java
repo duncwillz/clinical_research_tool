@@ -28,6 +28,7 @@ import model.Item;
 import model.Messaging;
 import model.Receive;
 import model.Subjects;
+import model.Supplier;
 import model.User;
 import model.Visits;
 import model.Withdrawals;
@@ -268,9 +269,9 @@ public abstract class ConnectAbstract {
         }
         return data;
     }
-    
-    public Daily findDailyRecordBySubject(int sn){
-       Daily model = new Daily();
+
+    public Daily findDailyRecordBySubject(int sn) {
+        Daily model = new Daily();
         try {
             String sql = "SELECT * FROM daily WHERE dsubjectnumber = ?";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -450,6 +451,24 @@ public abstract class ConnectAbstract {
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setInt(1, id);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                model = new Item(rs.getInt("iid"), rs.getString("iname"), rs.getDate("idate"), rs.getInt("iuser"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return model;
+    }
+
+    public Item findItemByName(String itemname) {
+        Item model = new Item();
+        try {
+            String sql = "SELECT * FROM item where iname = ?";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setString(1, itemname);
             ResultSet rs = s.executeQuery();
             while (rs.next()) {
                 model = new Item(rs.getInt("iid"), rs.getString("iname"), rs.getDate("idate"), rs.getInt("iuser"));
@@ -1007,23 +1026,144 @@ public abstract class ConnectAbstract {
         }
         return data;
     }
-    
+
+    //    SUPPLIER
+    public boolean create(Supplier model) {
+        try {
+            String sql = "INSERT INTO `supplier` (`suitem`, `susubjectid`, `sudate`, `suuserid`, `suprescriber`, `sudescription`, `sudatecreated`, `suitemnumber`) VALUES (?,?,?,?,?,?,now(),?)";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setInt(1, model.getSuitem());
+            s.setInt(2, model.getSusubjectid());
+            s.setDate(3, model.getSudate());
+            s.setInt(4, model.getSuuserid());
+            s.setString(5, model.getSuprescriber());
+            s.setString(6, model.getSudescription());
+            s.setInt(7, model.getSuitemnumber());
+            return s.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean update(Supplier model) {
+        try {
+            String sql = "UPDATE `supplier` SET `suitem` = ?, `susubjectid` = ?, `sudate` = ?, `suuserid` = ?, `suprescriber` = ?, `sudescription` = ?, `suitemnumber` = ? WHERE `supplier`.`suid` = ?";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setInt(1, model.getSuitem());
+            s.setInt(2, model.getSusubjectid());
+            s.setDate(3, model.getSudate());
+            s.setInt(4, model.getSuuserid());
+            s.setString(5, model.getSuprescriber());
+            s.setString(6, model.getSudescription());
+            s.setInt(7, model.getSuitemnumber());
+            s.setInt(8, model.getSuid());
+            return s.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public boolean delete(Supplier model) {
+        try {
+            String sql = "DELETE FROM supplier WHERE suid = ?";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setInt(1, model.getSuid());
+            return s.executeUpdate() > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    public Supplier findSupplierFromID(int id) {
+        Supplier model = new Supplier();
+        try {
+            String sql = "SELECT * FROM supplier where suid = ?";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setInt(1, id);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                s.setInt(1, model.getSuitem());
+                s.setInt(2, model.getSusubjectid());
+                s.setDate(3, model.getSudate());
+                s.setInt(4, model.getSuuserid());
+                s.setString(5, model.getSuprescriber());
+                s.setString(6, model.getSudescription());
+                s.setInt(7, model.getSuitemnumber());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return model;
+    }
+
+    public List<Supplier> getAllSuppliers() {
+        List<Supplier> data = new ArrayList();
+        try {
+            String sql = "SELECT * FROM supplier";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                Supplier model = new Supplier(rs.getInt("wid"));
+                model.setSuid(rs.getInt("wid"));
+                model.setSuitem(rs.getInt(""));
+                model.setSuitemnumber(rs.getInt(""));
+                model.setSusubjectid(rs.getInt(""));
+                model.setSuuserid(rs.getInt(""));
+                model.setSudate(rs.getDate(""));
+                model.setSudescription(rs.getString(""));
+                model.setSuprescriber(rs.getString(""));
+                data.add(model);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return data;
+    }
+
+    public Double getSumOf(int itemid, String ...params) {
+        double suppliers_number = 0;
+        try {
+            String sql = "SELECT SUM("+params[0]+") as total FROM "+params[1]+" WHERE "+params[2]+" = ?";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            s.setInt(1, itemid);
+            ResultSet rs = s.executeQuery();
+            while (rs.next()) {
+                suppliers_number = rs.getInt("total");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        return suppliers_number;
+    }
+
 //    INTERVAL
     public List<Intervals> getAllIntervals(String visit) {
         List<Intervals> data = new ArrayList();
         try {
-            String sql ="SELECT visits.vssubjectnumber , visits.vsvisitdate FROM `visits` WHERE visits.vsvisit = ? AND visits.vsskipped = 0 ORDER BY visits.vssubjectnumber ASC";
+            String sql = "SELECT visits.vssubjectnumber , visits.vsvisitdate FROM `visits` WHERE visits.vsvisit = ? AND visits.vsskipped = 0 ORDER BY visits.vssubjectnumber ASC";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setString(1, visit);
-            
+
             ResultSet rs = s.executeQuery();
             while (rs.next()) {
                 Intervals model = new Intervals(rs.getInt("vssubjectnumber"));
                 model.setPreviousVisit(rs.getDate("vsvisitdate"));
-                model.setStartDate(md.calcVisitInterval(rs.getDate("vsvisitdate"),visit)[0]);
-                model.setEndDate(md.calcVisitInterval(rs.getDate("vsvisitdate"),visit)[1]);
-                System.out.println("This is the set endDate--->"+model.getEndDate());
+                model.setStartDate(md.calcVisitInterval(rs.getDate("vsvisitdate"), visit)[0]);
+                model.setEndDate(md.calcVisitInterval(rs.getDate("vsvisitdate"), visit)[1]);
+                System.out.println("This is the set endDate--->" + model.getEndDate());
                 model.setDaysLeft(md.calcDaysLeft(model.getEndDate()));
                 data.add(model);
             }
