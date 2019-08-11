@@ -290,6 +290,60 @@ public class MainController implements Initializable {
     private TableView<?> ricTableView;
     @FXML
     private TextField recSearchTextField;
+    @FXML
+    private Label issNameLab;
+    @FXML
+    private Label issComLabel;
+    @FXML
+    private Label issDOBLabl;
+    @FXML
+    private Label issGroupLabel;
+    @FXML
+    private ComboBox<?> issItemCombo;
+    @FXML
+    private TextField issNumberIsuedText;
+    @FXML
+    private TextField issStockText;
+    @FXML
+    private Button issIssueOutButton;
+    @FXML
+    private TextField issPrescriberText;
+    @FXML
+    private TextField issDescriptionText;
+    @FXML
+    private ComboBox<?> issSubjectCombo;
+    @FXML
+    private ComboBox<?> issDateDay;
+    @FXML
+    private ComboBox<?> issDateMonth;
+    @FXML
+    private ComboBox<?> issDateYear;
+    @FXML
+    private CheckBox issDateTodayCheck;
+    @FXML
+    private ComboBox<?> issUserCombo;
+    @FXML
+    private TextField issSearchTextField;
+    @FXML
+    private TableView<?> issTableView;
+    @FXML
+    private TableColumn<?, ?> issUserCol;
+    @FXML
+    private TableColumn<?, ?> issSubjectCol;
+    @FXML
+    private TableColumn<?, ?> issItemCol;
+    @FXML
+    private TableColumn<?, ?> issDateCol;
+    @FXML
+    private TableColumn<?, ?> issNumberCol;
+    @FXML
+    private TableColumn<?, ?> issPrescriberCol;
+    @FXML
+    private TableColumn<?, ?> issDescriptionCol;
+    @FXML
+    private Button issUpdateButton;
+    @FXML
+    private Button issDeleteButton;
 
     @FXML
     void dbClearDetails(ActionEvent event) {
@@ -498,6 +552,18 @@ public class MainController implements Initializable {
 
     @FXML
     private void riOnDelete(ActionEvent event) {
+    }
+
+    @FXML
+    private void issOnIssueOut(ActionEvent event) {
+    }
+
+    @FXML
+    private void issOnUpdate(ActionEvent event) {
+    }
+
+    @FXML
+    private void issOnDelete(ActionEvent event) {
     }
 
 
