@@ -812,7 +812,14 @@
                         </Tab>
                         <Tab text="Settings">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <BorderPane layoutX="142.0" layoutY="36.0" prefHeight="537.0" prefWidth="1299.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <center>
+                                          <Button mnemonicParsing="false" onAction="#exportAllData" prefHeight="94.0" prefWidth="331.0" text="Export all data" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                      </tabs>
