@@ -1237,5 +1237,57 @@ public abstract class ConnectAbstract {
         }
         return true;
     }
+        
+    
+    public boolean exportAllVisits(String path) {
 
+        try {
+            String sql = "SELECT * FROM `visits`";
+            PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            s.setFetchSize(1);
+            ResultSet rs = s.executeQuery();
+            String datas = "Data";
+            XSSFWorkbook wb = new XSSFWorkbook();
+            XSSFSheet sheet = wb.createSheet(datas);
+            XSSFRow header = sheet.createRow(0);
+            header.createCell(0).setCellValue("No.");
+            header.createCell(1).setCellValue("User");
+            header.createCell(2).setCellValue("Subject Number");
+            header.createCell(3).setCellValue("Visit Number");
+            header.createCell(4).setCellValue("Visit Date");
+            header.createCell(5).setCellValue("Visit State");
+            header.createCell(6).setCellValue("Visit Created");
+
+            int index = 1;
+            while (rs.next()) {
+                XSSFRow row = sheet.createRow(index);
+                row.createCell(0).setCellValue(index);
+                row.createCell(1).setCellValue(rs.getInt("vsuserid"));
+                row.createCell(2).setCellValue(rs.getString("vssubjectnumber"));
+                row.createCell(3).setCellValue(rs.getString("vsvisit"));
+                String da = rs.getString("vsvisitdate");
+                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date dat = sdf1.parse(da);
+                java.sql.Date sqlStartDate = new java.sql.Date(dat.getTime());
+                row.createCell(4).setCellValue(format.format(sqlStartDate));
+                
+                row.createCell(5).setCellValue(rs.getString("vsskipped"));
+                row.createCell(6).setCellValue(rs.getString("vsdatecreated"));
+                index++;
+            }
+            FileOutputStream output = new FileOutputStream(path + "/allVisits - " + format.format(md.convert(LocalDate.now())) + " Report" + ".xlsx");
+            wb.write(output);
+            md.note("File Exported", "The Excel File has been exported to the root directory");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectAbstract.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ConnectAbstract.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ConnectAbstract.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(ConnectAbstract.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
 }
