@@ -7,6 +7,7 @@ package controllers;
 
 import bloc.DailyVisitsBloc;
 import bloc.IntervalBloc;
+import bloc.SettingBlocs;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
@@ -42,6 +43,7 @@ public class FieldController implements Initializable {
     mediator md = mediator.md();
     DailyVisitsBloc dvBloc = DailyVisitsBloc.dvBloc();
     IntervalBloc inBloc = IntervalBloc.intervalBloc();
+    SettingBlocs setBloc = SettingBlocs.setBloc();
 
     @FXML
     private ComboBox<String> vsSelectVisitCombo;
@@ -319,6 +321,7 @@ public class FieldController implements Initializable {
 
     @FXML
     private void exportAllData(ActionEvent event) {
+        setBloc.exportAction();
     }
 
 
