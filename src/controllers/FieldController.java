@@ -317,5 +317,9 @@ public class FieldController implements Initializable {
         inBloc.exportToExcel(md.dependentVisits(inselectVisitCombo.getValue()),inselectVisitCombo.getValue());
     }
 
+    @FXML
+    private void exportAllData(ActionEvent event) {
+    }
+
 
 }
