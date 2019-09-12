@@ -1265,11 +1265,11 @@ public abstract class ConnectAbstract {
                 row.createCell(1).setCellValue(rs.getInt("vsuserid"));
                 row.createCell(2).setCellValue(rs.getString("vssubjectnumber"));
                 row.createCell(3).setCellValue(rs.getString("vsvisit"));
-                String da = rs.getString("vsvisitdate");
-                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-                java.util.Date dat = sdf1.parse(da);
-                java.sql.Date sqlStartDate = new java.sql.Date(dat.getTime());
-                row.createCell(4).setCellValue(format.format(sqlStartDate));
+//                String da = rs.getString("vsvisitdate");
+//                SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+//                java.util.Date dat = sdf1.parse(da);
+//                java.sql.Date sqlStartDate = new java.sql.Date(dat.getTime());
+                row.createCell(4).setCellValue(rs.getString("vsvisitdate"));
                 
                 row.createCell(5).setCellValue(rs.getString("vsskipped"));
                 row.createCell(6).setCellValue(rs.getString("vsdatecreated"));
@@ -1285,9 +1285,7 @@ public abstract class ConnectAbstract {
             Logger.getLogger(ConnectAbstract.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ConnectAbstract.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ParseException ex) {
-            Logger.getLogger(ConnectAbstract.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
         return true;
     }
 }
