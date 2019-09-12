@@ -30,7 +30,7 @@ public class SettingBlocs {
 
     }
 
-    public static SettingBlocs iBloc() {
+    public static SettingBlocs setBloc() {
         return SETTING_BLOC;
     }
 
