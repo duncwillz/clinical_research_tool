@@ -5,6 +5,7 @@
  */
 package bloc;
 
+import bloc_factory.BlocInterface;
 import dao.DBConnect;
 import java.awt.Desktop;
 import java.io.File;
@@ -45,7 +46,7 @@ import utils.mediator;
  *
  * @author kwakuadjei <duncanadjei@gmail.com>
  */
-public class DailyVisitsBloc {
+public class DailyVisitsBloc implements BlocInterface{
 
     mediator md = mediator.md();
     Visits visits = new Visits();
@@ -62,6 +63,7 @@ public class DailyVisitsBloc {
         return DAILYVISIT_BLOC;
     }
 
+    @Override
     public void populateCombox(ComboBox... combos) {
         combos[1].getItems().clear();
         combos[0].getItems().clear();
@@ -117,7 +119,8 @@ public class DailyVisitsBloc {
             }
         });
     }
-
+    
+    @Override
     public void populateTable(TableView tableView, ComboBox<String> visitType, TableColumn... col) {
         col[0].setCellValueFactory(new PropertyValueFactory<>("vssubjectnumber"));
         col[1].setCellValueFactory(new PropertyValueFactory<>("vsvisit"));
@@ -191,7 +194,7 @@ public class DailyVisitsBloc {
         } catch (Exception e) {
         }
     }
-
+    @Override
     public void autoSearch(TextField searchText, TableView tableView) {
         FilteredList<Visits> filteredData = new FilteredList<>(data, e -> true);
         searchText.textProperty().addListener((ObservableValue, oldValue, newValue) -> {
@@ -418,5 +421,10 @@ public class DailyVisitsBloc {
 //       }
         }
         return true;
+    }
+
+    @Override
+    public void populateSecondTable(TableView tableView, ComboBox<String> visitType, TableColumn... col) {
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }
