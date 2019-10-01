@@ -28,11 +28,13 @@ public class Daily  {
     private Time dtime;
     private Date ddate;
     private int duser;
+    private String dhistory; 
+    
 
     public Daily() {
     }
 
-    public Daily(Integer did, double dweight, double dtemp, int dsubjectnumber, String dcasetype, String dfeverstate, Timestamp ddatecreated, Time dtime, Date ddate, int duser) {
+    public Daily(Integer did, double dweight, double dtemp, int dsubjectnumber, String dcasetype, String dfeverstate, Timestamp ddatecreated, Time dtime, Date ddate, int duser, String dhistory) {
         this.did = did;
         this.dweight = dweight;
         this.dtemp = dtemp;
@@ -43,9 +45,10 @@ public class Daily  {
         this.dtime = dtime;
         this.ddate = ddate;
         this.duser = duser;
+        this.dhistory = dhistory;
     }
 
-    public Daily(double dweight, double dtemp, int dsubjectnumber, String dcasetype, String dfeverstate, Timestamp ddatecreated, Time dtime, Date ddate, int duser) {
+    public Daily(double dweight, double dtemp, int dsubjectnumber, String dcasetype, String dfeverstate, Timestamp ddatecreated, Time dtime, Date ddate, int duser, String dhistory) {
         this.dweight = dweight;
         this.dtemp = dtemp;
         this.dsubjectnumber = dsubjectnumber;
@@ -55,8 +58,19 @@ public class Daily  {
         this.dtime = dtime;
         this.ddate = ddate;
         this.duser = duser;
+        this.dhistory = dhistory;
     }
 
+    public String getDhistory() {
+        return dhistory;
+    }
+
+    public void setDhistory(String dhistory) {
+        this.dhistory = dhistory;
+    }
+
+
+    
     public Date getDdate() {
         return ddate;
     }
