@@ -112,7 +112,7 @@ public class MainController implements Initializable {
     private TableColumn<Daily, Integer> dbPidCol;
 
     @FXML
-    private TableColumn<Daily, Date> dbDateCol;
+    private TableColumn<Daily, String> dbHistoryCol;
 
     @FXML
     private TableColumn<Daily, String> dbCaseCol;
@@ -344,6 +344,8 @@ public class MainController implements Initializable {
     private Button issUpdateButton;
     @FXML
     private Button issDeleteButton;
+    @FXML
+    private CheckBox dbHistory;
 
     @FXML
     void dbClearDetails(ActionEvent event) {
@@ -366,7 +368,7 @@ public class MainController implements Initializable {
         } else {
             pid = dbTableView.getSelectionModel().getSelectedItem().getDid();
         }
-        if (dBloc.saveOrUpdate(dbSaveOrUpdateButton, event, dbWeight, dbTemp, dbTimeH, dbTimeM, dbNewCaseCheck, dbReviewCheck, dbDateCheck, pid, dbUserCombo, dbSubjectNumberCombo,dbDayCombo,dbMonthCombo,dbYearCombo)) {
+        if (dBloc.saveOrUpdate(dbSaveOrUpdateButton, event, dbWeight, dbTemp, dbTimeH, dbTimeM, dbNewCaseCheck, dbReviewCheck, dbDateCheck, dbHistory, pid, dbUserCombo, dbSubjectNumberCombo,dbDayCombo,dbMonthCombo,dbYearCombo)) {
             refreshDailyBloc();
             dBlocInitializes();
         }
@@ -376,7 +378,7 @@ public class MainController implements Initializable {
     void dbUpdateButton(ActionEvent event) {
         refreshDailyBloc();
         dbSaveOrUpdateButton.setText("Update");
-        dBloc.onUpdateClick(dbTableView, dbTableView.getSelectionModel().getSelectedItem(), dbUserCombo, dbSubjectNumberCombo, dbDayCombo,dbMonthCombo,dbYearCombo, dbTemp, dbWeight,dbTimeH,dbTimeM, dbSubjectNameLabel, dbSubjectDOBLabel, dbSubjectComLabel);
+        dBloc.onUpdateClick(dbTableView, dbTableView.getSelectionModel().getSelectedItem(),dbHistory, dbUserCombo, dbSubjectNumberCombo, dbDayCombo,dbMonthCombo,dbYearCombo, dbTemp, dbWeight,dbTimeH,dbTimeM, dbSubjectNameLabel, dbSubjectDOBLabel, dbSubjectComLabel);
         dBloc.checkStatus(dbTableView.getSelectionModel().getSelectedItem().getDcasetype(), dbNewCaseCheck, dbReviewCheck);
 
     }
@@ -412,14 +414,14 @@ public class MainController implements Initializable {
         dBloc.populateCombox(dbUserCombo, dbSubjectNumberCombo, dbDayCombo,dbMonthCombo,dbYearCombo);
         dBloc.nowDate(dbDateNow);
         dBloc.onSelectSubject(dbSubjectNameLabel, dbSubjectDOBLabel, dbSubjectComLabel, dbUserCombo, dbSubjectNumberCombo);
-        dBloc.populateTable(dbTableView, dbWeightCol, dbTempCol, dbPidCol, dbCaseCol, dbUserCol, dbDateCol, dbTimeCol,dbOPDDateCol);
+        dBloc.populateTable(dbTableView, dbWeightCol, dbTempCol, dbPidCol, dbCaseCol, dbUserCol, dbHistoryCol, dbTimeCol,dbOPDDateCol);
         dBloc.autoSearch(dbSearchTextfield, dbTableView);
     }
 
     public void refreshDailyBloc() {
         dBloc.refreshLabel(dbSubjectNameLabel, dbSubjectDOBLabel, dbSubjectComLabel);
-        dBloc.refreshFields(dbWeight, dbTemp, dbTimeH,dbTimeM, dbNewCaseCheck, dbReviewCheck, dbUserCombo, dbSubjectNumberCombo, dbDayCombo,dbYearCombo,dbMonthCombo);
-        dBloc.populateTable(dbTableView, dbWeightCol, dbTempCol, dbPidCol, dbCaseCol, dbUserCol, dbDateCol, dbTimeCol,dbOPDDateCol);
+        dBloc.refreshFields(dbWeight, dbTemp, dbTimeH,dbTimeM, dbNewCaseCheck, dbReviewCheck, dbHistory,dbDateCheck, dbUserCombo, dbSubjectNumberCombo, dbDayCombo,dbYearCombo,dbMonthCombo);
+        dBloc.populateTable(dbTableView, dbWeightCol, dbTempCol, dbPidCol, dbCaseCol, dbUserCol, dbHistoryCol, dbTimeCol,dbOPDDateCol);
     }
 
     public void userLoggedIn() {
