@@ -152,14 +152,15 @@ public class DailyOutpatientBloc {
         label[2].setText("COM: " + md.getDbSubject().getScommunity());
     }
 
-    public Boolean isValidatedCombo(ComboBox... combos) {
+    public Boolean isValidatedCombo(CheckBox sameDate,ComboBox... combos) {
         if (combos[0].getValue() == null) {
             md.note("Error", "Please select User");
             return false;
         } else if (combos[1].getValue() == null) {
             md.note("Error", "Please select Subject number");
             return false;
-        } else if (combos[2].getValue() == null) {
+        } else if(!sameDate.isSelected()){
+            if (combos[2].getValue() == null) {
             md.note("Error", "Please select Day of  date");
             return false;
         } else if (combos[3].getValue() == null) {
@@ -168,6 +169,7 @@ public class DailyOutpatientBloc {
         } else if (combos[4].getValue() == null) {
             md.note("Error", "Please select Year of  date");
             return false;
+        }
         }
         return true;
     }
@@ -196,7 +198,14 @@ public class DailyOutpatientBloc {
         }
         return true;
     }
+    private String isHistroy(CheckBox check){
+        if(check.isSelected()){
+            return "Yes";
+        }
+        return "No";
+    }
 
+    
     public String caseType(CheckBox... check) {
         if (check[0].isSelected() && check[1].isSelected()) {
             return "New case and Review";
@@ -211,14 +220,14 @@ public class DailyOutpatientBloc {
     public String feverState(TextField temp) {
         if (Double.parseDouble(temp.getText()) < 37.5) {
             return "Not Fever";
-        } else if (Double.parseDouble(temp.getText()) > 37.5) {
+        } else if (Double.parseDouble(temp.getText()) >= 37.5) {
             return "Fever";
         }
         return null;
     }
 
-    public Boolean saveOrUpdate(Button saveButton, ActionEvent event, TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck,CheckBox dbDateCheck, int opdId, ComboBox... combos) {
-        if (isValidCaseType(dbNewCaseCheck, dbReviewCheck) && isValidTextField(temp, weight, h, m) && isValidatedCombo(combos)) {
+    public Boolean saveOrUpdate(Button saveButton, ActionEvent event, TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck,CheckBox dbDateCheck, CheckBox dHistoryCheck, int opdId, ComboBox... combos) {
+        if (isValidCaseType(dbNewCaseCheck, dbReviewCheck) && isValidTextField(temp, weight, h, m) && isValidatedCombo( dbDateCheck,combos)) {
             daily.setDcasetype(caseType(dbNewCaseCheck, dbReviewCheck));
             daily.setDfeverstate(feverState(temp));
             daily.setDtemp(Double.parseDouble(temp.getText()));
@@ -227,10 +236,11 @@ public class DailyOutpatientBloc {
             daily.setDsubjectnumber(md.getDbSubject().getSnumber());
             daily.setDtime(getTimeJoint(h, m));
             daily.setDdate(getDDate(dbDateCheck,combos));
+            daily.setDhistory(isHistroy(dHistoryCheck));
             if (saveButton.getText().equals("Save")) {
                 if (DBConnect.getInstance().create(daily)) {
                     md.note("Successful", "Records saved");
-                    refreshFields(weight, temp, h, m, dbNewCaseCheck, dbReviewCheck, combos);
+                    refreshFields(weight, temp, h, m, dbNewCaseCheck, dbReviewCheck, dHistoryCheck,dbDateCheck, combos);
                 }
             } else if (saveButton.getText().equals("Update")) {
                 daily.setDid(opdId);
@@ -238,10 +248,10 @@ public class DailyOutpatientBloc {
                     if (DBConnect.getInstance().update(daily)) {
                         md.note("Successful", "Records updated");
                         saveButton.setText("Save");
-                        refreshFields(weight, temp, h, m, dbNewCaseCheck, dbReviewCheck, combos);
+                        refreshFields(weight, temp, h, m, dbNewCaseCheck, dbReviewCheck, dHistoryCheck,dbDateCheck, combos);
                     }
                 } else {
-
+                    return false;
                 }
             }
             return true;
@@ -273,7 +283,6 @@ public class DailyOutpatientBloc {
 
         if (check.isSelected()) {
             return sd;
-
         } else if (combox[2].getValue() == null || combox[3].getValue() == null || combox[4].getValue() == null) {
             md.note("Error", "Please enter Date");
             return null;
@@ -296,13 +305,15 @@ public class DailyOutpatientBloc {
         return sd;
     }
 
-    public void refreshFields(TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, ComboBox... combos) {
+    public void refreshFields(TextField weight, TextField temp, TextField h, TextField m, CheckBox dbNewCaseCheck, CheckBox dbReviewCheck, CheckBox dHistory, CheckBox dbDateCheck, ComboBox... combos) {
         weight.setText("");
         temp.setText("");
         h.setText("");
         m.setText("");
+        dHistory.setSelected(false);
         dbNewCaseCheck.setSelected(false);
         dbReviewCheck.setSelected(false);
+        dbDateCheck.setSelected(false);
         combos[0].setValue(null);
         combos[1].setValue(null);
         combos[2].setValue(null);
@@ -323,26 +334,26 @@ public class DailyOutpatientBloc {
         col[2].setCellValueFactory(new PropertyValueFactory<>("dsubjectnumber"));
         col[3].setCellValueFactory(new PropertyValueFactory<>("dcasetype"));
         col[4].setCellValueFactory(new PropertyValueFactory<>("duser"));
-        col[5].setCellValueFactory(new PropertyValueFactory<>("ddatecreated"));
-        col[5].setCellFactory(column -> {
-            TableCell<Daily, java.sql.Timestamp> cell = new TableCell<Daily, java.sql.Timestamp>() {
-                private final SimpleDateFormat format = new SimpleDateFormat("E, dd-MMM-yyyy");
-
-                @Override
-                protected void updateItem(java.sql.Timestamp item, boolean empty) {
-                    try {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            setText(format.format(item));
-                        }
-                    } catch (Exception es) {
-                    }
-                }
-            };
-            return cell;
-        });
+        col[5].setCellValueFactory(new PropertyValueFactory<>("dhistory"));
+//        col[5].setCellFactory(column -> {
+//            TableCell<Daily, java.sql.Timestamp> cell = new TableCell<Daily, java.sql.Timestamp>() {
+//                private final SimpleDateFormat format = new SimpleDateFormat("E, dd-MMM-yyyy");
+//
+//                @Override
+//                protected void updateItem(java.sql.Timestamp item, boolean empty) {
+//                    try {
+//                        super.updateItem(item, empty);
+//                        if (empty) {
+//                            setText(null);
+//                        } else {
+//                            setText(format.format(item));
+//                        }
+//                    } catch (Exception es) {
+//                    }
+//                }
+//            };
+//            return cell;
+//        });
         col[6].setCellValueFactory(new PropertyValueFactory<>("dtime"));
         col[6].setCellFactory(column -> {
             TableCell<Daily, Time> cell = new TableCell<Daily, Time>() {
@@ -422,6 +433,7 @@ public class DailyOutpatientBloc {
                 new View("Temperature", Double.toString(daily.getDtemp())),
                 new View("Case", daily.getDcasetype()),
                 new View("Fever state", daily.getDfeverstate()),
+                new View ("History of fever", daily.getDhistory()),
                 new View("User", DBConnect.getInstance().findUserByUserId(daily.getDuser()).getUfullname()),
                 new View("Time", md.toTimeFormatFromString(daily.getDtime())),
                 new View("OPD Date", md.toDateFormat(daily.getDdate())),
@@ -457,13 +469,14 @@ public class DailyOutpatientBloc {
         return false;
     }
 
-    public boolean onUpdateClick(TableView tableView, Daily daily, ComboBox c1, ComboBox c2, ComboBox d, ComboBox mm, ComboBox y, TextField t1, TextField t2, TextField h, TextField m, Label... l) {
+    public boolean onUpdateClick(TableView tableView, Daily daily, CheckBox historyCheck, ComboBox c1, ComboBox c2, ComboBox d, ComboBox mm, ComboBox y, TextField t1, TextField t2, TextField h, TextField m, Label... l) {
         if (tableView.getSelectionModel().getSelectedIndex() < 0) {
             md.note("Error", "Please select the OPD record to update");
             return false;
         } else {
             if (updateLabelFields(daily, c1, c2, l)) {
                 updateTextFields(daily, d, mm, y, t1, t2, h, m);
+                onUpdateHistory(daily, historyCheck);
             }
         }
         return false;
@@ -476,16 +489,16 @@ public class DailyOutpatientBloc {
         l[1].setText(subject.getSdob().toString());
         l[2].setText(subject.getScommunity());
         c1.setValue(user.getUfullname());
-        c2.setValue(subject.getSid() + " " + subject.getSname());
+        c2.setValue(subject.getSnumber()+ " " + subject.getSname());
         return true;
     }
 
     public void updateTextFields(Daily daily, ComboBox d, ComboBox m, ComboBox y, TextField... text) {
         text[0].setText(Double.toString(daily.getDtemp()));
         text[1].setText(Double.toString(daily.getDweight()));
-        SimpleDateFormat sdf = new SimpleDateFormat("H");
+        SimpleDateFormat sdf = new SimpleDateFormat("HH");
         text[2].setText(sdf.format(daily.getDtime()));
-        sdf = new SimpleDateFormat("m");
+        sdf = new SimpleDateFormat("mm");
         text[3].setText(sdf.format(daily.getDtime()));
         sdf = new SimpleDateFormat("d");
         d.setValue(Integer.parseInt(sdf.format(daily.getDdate())));
@@ -493,6 +506,12 @@ public class DailyOutpatientBloc {
         m.setValue(sdf.format(daily.getDdate()));
         sdf = new SimpleDateFormat("yyyy");
         y.setValue(Integer.parseInt(sdf.format(daily.getDdate())));
+    }
+    
+    private void onUpdateHistory(Daily daily, CheckBox historyCheck){
+        if (daily.getDhistory().equals("Yes")){
+            historyCheck.setSelected(true);
+        }
     }
 
 //    public int dayFromPreviousVisit(Integer subjectNumber){
