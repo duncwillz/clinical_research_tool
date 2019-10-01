@@ -191,7 +191,7 @@ public abstract class ConnectAbstract {
     //    STORE CONNECT USER DIALY OR OURPATIENTS
     public boolean create(Daily model) {
         try {
-            String sql = "INSERT INTO daily (dweight, dtemp, dsubjectnumber, dcasetype, dfeverstate,dtime,ddate, duser, ddatecreated) VALUES (?,?,?,?,?,?, ?,?, now())";
+            String sql = "INSERT INTO daily (dweight, dtemp, dsubjectnumber, dcasetype, dfeverstate,dhistory, dtime,ddate, duser, ddatecreated) VALUES (?,?,?,?,?,?, ?,?,?, now())";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setDouble(1, model.getDweight());
@@ -199,9 +199,10 @@ public abstract class ConnectAbstract {
             s.setInt(3, model.getDsubjectnumber());
             s.setString(4, model.getDcasetype());
             s.setString(5, model.getDfeverstate());
-            s.setTime(6, model.getDtime());
-            s.setDate(7, model.getDdate());
-            s.setInt(8, model.getDuser());
+            s.setString(6, model.getDhistory());
+            s.setTime(7, model.getDtime());
+            s.setDate(8, model.getDdate());
+            s.setInt(9, model.getDuser());
             return s.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,7 +212,7 @@ public abstract class ConnectAbstract {
 
     public boolean update(Daily model) {
         try {
-            String sql = "UPDATE daily SET dweight = ?, dtemp = ?, dsubjectnumber = ?, dcasetype = ?, dfeverstate = ?, dtime =?, ddate =? WHERE did = ?";
+            String sql = "UPDATE daily SET dweight = ?, dtemp = ?, dsubjectnumber = ?, dcasetype = ?, dfeverstate = ?, dhistory = ?, dtime =?, ddate =? WHERE did = ?";
             PreparedStatement s = connect().prepareStatement(sql, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             s.setFetchSize(1);
             s.setDouble(1, model.getDweight());
@@ -219,9 +220,10 @@ public abstract class ConnectAbstract {
             s.setInt(3, model.getDsubjectnumber());
             s.setString(4, model.getDcasetype());
             s.setString(5, model.getDfeverstate());
-            s.setTime(6, model.getDtime());
-            s.setDate(7, model.getDdate());
-            s.setInt(8, model.getDid());
+            s.setString(6, model.getDhistory());
+            s.setTime(7, model.getDtime());
+            s.setDate(8, model.getDdate());
+            s.setInt(9, model.getDid());
             return s.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,6 +259,7 @@ public abstract class ConnectAbstract {
                 model.setDsubjectnumber(rs.getInt("dsubjectnumber"));
                 model.setDcasetype(rs.getString("dcasetype"));
                 model.setDfeverstate(rs.getString("dfeverstate"));
+                model.setDhistory(rs.getString("dhistory"));
                 model.setDtime(rs.getTime("dtime"));
                 model.setDdate(rs.getDate("ddate"));
                 model.setDuser(rs.getInt("duser"));
@@ -286,6 +289,7 @@ public abstract class ConnectAbstract {
                 model.setDtime(rs.getTime("dtime"));
                 model.setDcasetype(rs.getString("dcasetype"));
                 model.setDfeverstate(rs.getString("dfeverstate"));
+                model.setDhistory(rs.getString("dhistory"));
                 model.setDuser(rs.getInt("duser"));
                 model.setDdate(rs.getDate("ddate"));
                 model.setDdatecreated(md.dateToTimeStamp(rs.getDate("ddatecreated")));
