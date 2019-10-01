@@ -287,6 +287,7 @@ public class DailyVisitsBloc implements BlocInterface{
                 visits.setVssubjectnumber(Integer.parseInt(text.getText()));
                 visits.setVsuserid(md.getId());
                 visits.setVsvisit(comb.getValue());
+                
                 if (check.isSelected()) {
                     if (md.AlertSelected(Alert.AlertType.INFORMATION, "Hi there", "Are you sure this visit was skiped", "Please okay if you are sure", "Ok")) {
                         visits.setVsvisitdate(null);
@@ -322,6 +323,7 @@ public class DailyVisitsBloc implements BlocInterface{
         }
         return 0;
     }
+    
 
     public boolean isNumberValidated(int number) {
         Subjects subjects = DBConnect.getInstance().findSubjectsByNumber(number);
