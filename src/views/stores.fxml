@@ -205,9 +205,19 @@
                                                             <Font size="17.0" />
                                                          </font>
                                                       </TextField>
+                                                      <CheckBox fx:id="dbHistory" mnemonicParsing="false" prefHeight="35.0" prefWidth="383.0" text="History of Fever" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font size="17.0" />
+                                                         </font>
+                                                      </CheckBox>
                                                       <ComboBox fx:id="dbDayCombo" prefHeight="36.0" prefWidth="78.0" promptText="dd" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                                                       <ComboBox fx:id="dbMonthCombo" prefHeight="36.0" prefWidth="76.0" promptText="MM" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                                                       <ComboBox fx:id="dbYearCombo" prefHeight="36.0" prefWidth="78.0" promptText="yyyy" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                                      <CheckBox fx:id="dbDateCheck" mnemonicParsing="false" prefHeight="35.0" prefWidth="383.0" text="Tick if this data is same day" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="3">
+                                                         <font>
+                                                            <Font size="17.0" />
+                                                         </font>
+                                                      </CheckBox>
                                                       <CheckBox fx:id="dbNewCaseCheck" mnemonicParsing="false" prefHeight="47.0" prefWidth="178.0" text="New case" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="4">
                                                          <font>
                                                             <Font size="17.0" />
@@ -236,11 +246,6 @@
                                                             <Font size="17.0" />
                                                          </font>
                                                       </Label>
-                                                      <CheckBox fx:id="dbDateCheck" mnemonicParsing="false" prefHeight="35.0" prefWidth="383.0" text="Tick if this data is same day" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="3">
-                                                         <font>
-                                                            <Font size="17.0" />
-                                                         </font>
-                                                      </CheckBox>
                                                    </children>
                                                 </GridPane>
                                              </center>
@@ -282,7 +287,7 @@
                                                                   <TableColumn fx:id="dbTimeCol" prefWidth="75.0" text="Time" />
                                                                   <TableColumn fx:id="dbOPDDateCol" prefWidth="75.0" text="OPD Date" />
                                                                   <TableColumn fx:id="dbUserCol" prefWidth="75.0" text="User" />
-                                                                  <TableColumn fx:id="dbDateCol" prefWidth="75.0" text="Date Created" />
+                                                                  <TableColumn fx:id="dbHistoryCol" prefWidth="75.0" text="Fever Hist." />
                                                                </columns>
                                                                <columnResizePolicy>
                                                                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -591,16 +596,17 @@
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="469.0" minWidth="0.0" prefWidth="0.0" />
                                                    </columnConstraints>
                                                    <rowConstraints>
-                                                      <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="27.753341674804688" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="46.24665832519531" vgrow="SOMETIMES" />
                                                       <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                                                       <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
                                                       <RowConstraints maxHeight="85.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
-                                                      <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="82.0" minHeight="10.0" prefHeight="64.57553100585938" vgrow="SOMETIMES" />
+                                                      <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="19.424468994140625" vgrow="SOMETIMES" />
                                                       <RowConstraints maxHeight="48.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowSpan="5">
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" GridPane.rowSpan="5">
                                                          <children>
                                                             <Label prefHeight="45.0" prefWidth="312.0" text="Subject Details" textFill="#217230">
                                                                <font>
@@ -629,78 +635,78 @@
                                                             </Label>
                                                          </children>
                                                       </VBox>
-                                                      <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowSpan="7" />
-                                                      <Label prefHeight="41.0" prefWidth="202.0" text="User:" GridPane.columnIndex="2">
+                                                      <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.rowSpan="7" />
+                                                      <Label prefHeight="41.0" prefWidth="202.0" text="User:" GridPane.columnIndex="2" GridPane.rowIndex="1">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="issItemCombo" prefHeight="39.0" prefWidth="384.0" promptText="Drug name" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-                                                      <TextField fx:id="issNumberIsuedText" prefHeight="40.0" prefWidth="193.0" promptText="Number Issued" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                                                      <ComboBox fx:id="issItemCombo" prefHeight="39.0" prefWidth="384.0" promptText="Drug name" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                                                      <TextField fx:id="issNumberIsuedText" prefHeight="40.0" prefWidth="193.0" promptText="Number Issued" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </TextField>
-                                                      <TextField fx:id="issStockText" prefHeight="40.0" prefWidth="193.0" promptText="Stock left" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                                                      <TextField fx:id="issStockText" prefHeight="40.0" prefWidth="193.0" promptText="Stock left" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="4">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </TextField>
-                                                      <Label prefHeight="36.0" prefWidth="142.0" text="Stock Left:" GridPane.columnIndex="7" GridPane.rowIndex="3">
+                                                      <Label prefHeight="36.0" prefWidth="142.0" text="Stock Left:" GridPane.columnIndex="7" GridPane.rowIndex="4">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label prefHeight="51.0" prefWidth="144.0" text="Number Issued:" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                      <Label prefHeight="51.0" prefWidth="144.0" text="Number Issued:" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <Button fx:id="issIssueOutButton" mnemonicParsing="false" onAction="#issOnIssueOut" prefHeight="43.0" prefWidth="197.0" text="Issue Out" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="6">
+                                                      <Button fx:id="issIssueOutButton" mnemonicParsing="false" onAction="#issOnIssueOut" prefHeight="43.0" prefWidth="197.0" text="Issue Out" GridPane.columnIndex="9" GridPane.columnSpan="2" GridPane.rowIndex="7">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Button>
-                                                      <Label prefHeight="41.0" prefWidth="138.0" text="Prescriber:" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                                      <Label prefHeight="41.0" prefWidth="138.0" text="Prescriber:" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label prefHeight="57.0" prefWidth="161.0" text="Description:" GridPane.columnIndex="7" GridPane.rowIndex="4">
+                                                      <Label prefHeight="57.0" prefWidth="161.0" text="Description:" GridPane.columnIndex="7" GridPane.rowIndex="5">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="issPrescriberText" prefHeight="40.0" prefWidth="363.0" promptText="Doctor's name" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-                                                      <TextField fx:id="issDescriptionText" prefHeight="40.0" prefWidth="363.0" promptText="Dignose" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-                                                      <Label prefHeight="41.0" prefWidth="202.0" text="Item:" GridPane.columnIndex="7" GridPane.rowIndex="1">
+                                                      <TextField fx:id="issPrescriberText" prefHeight="40.0" prefWidth="363.0" promptText="Doctor's name" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+                                                      <TextField fx:id="issDescriptionText" prefHeight="40.0" prefWidth="363.0" promptText="Dignose" GridPane.columnIndex="8" GridPane.columnSpan="3" GridPane.rowIndex="5" />
+                                                      <Label prefHeight="41.0" prefWidth="202.0" text="Item:" GridPane.columnIndex="7" GridPane.rowIndex="2">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="issSubjectCombo" prefHeight="39.0" prefWidth="384.0" promptText="Select subject" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-                                                      <Label prefHeight="41.0" prefWidth="202.0" text="Date:" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                      <ComboBox fx:id="issSubjectCombo" prefHeight="39.0" prefWidth="384.0" promptText="Select subject" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                                                      <Label prefHeight="41.0" prefWidth="202.0" text="Date:" GridPane.columnIndex="2" GridPane.rowIndex="3">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="issDateDay" prefHeight="39.0" prefWidth="384.0" promptText="dd" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-                                                      <ComboBox fx:id="issDateMonth" prefHeight="39.0" prefWidth="384.0" promptText="MM" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                                                      <ComboBox fx:id="issDateYear" prefHeight="39.0" prefWidth="384.0" promptText="yyyy" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-                                                      <CheckBox fx:id="issDateTodayCheck" mnemonicParsing="false" text="Tick if it is today" GridPane.columnIndex="7" GridPane.rowIndex="2" />
-                                                      <Label prefHeight="41.0" prefWidth="202.0" text="Subject:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                      <ComboBox fx:id="issDateDay" prefHeight="39.0" prefWidth="384.0" promptText="dd" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                                                      <ComboBox fx:id="issDateMonth" prefHeight="39.0" prefWidth="384.0" promptText="MM" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                                                      <ComboBox fx:id="issDateYear" prefHeight="39.0" prefWidth="384.0" promptText="yyyy" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                                                      <CheckBox fx:id="issDateTodayCheck" mnemonicParsing="false" text="Tick if it is today" GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                                                      <Label prefHeight="41.0" prefWidth="202.0" text="Subject:" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                          <font>
                                                             <Font size="15.0" />
                                                          </font>
                                                       </Label>
-                                                      <ComboBox fx:id="issUserCombo" prefHeight="39.0" prefWidth="384.0" promptText="Select user" GridPane.columnIndex="3" GridPane.columnSpan="3" />
+                                                      <ComboBox fx:id="issUserCombo" prefHeight="39.0" prefWidth="384.0" promptText="Select user" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="1" />
                                                    </children>
                                                 </GridPane>
                                              </center>
                                           </BorderPane>
                                           <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="2">
                                              <center>
-                                                <GridPane prefHeight="172.0" prefWidth="1252.0" BorderPane.alignment="CENTER">
+                                                <GridPane prefHeight="207.0" prefWidth="1235.0" BorderPane.alignment="CENTER">
                                                    <columnConstraints>
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="562.0" minWidth="10.0" prefWidth="459.0" />
                                                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="842.0" minWidth="10.0" prefWidth="630.0" />
